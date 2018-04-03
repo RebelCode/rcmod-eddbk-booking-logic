@@ -11,8 +11,16 @@
     ],
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/RebelCode/rcmod-booking-logic"
+        }
+    ],
     "require": {
-        "php": "^5.4 | ^7.0"
+        "php": "^5.4 | ^7.0",
+        "rebelcode/modular": "dev-task/initial-classes",
+        "rebelcode/rcmod-booking-logic": "dev-task/initial-module-code"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.8",
