@@ -73,5 +73,8 @@ class EddBookingsLogicModule extends AbstractBaseModule
      */
     public function run(ContainerInterface $c = null)
     {
+        // Set up transition manager
+        $transitionManager = $c->get('booking_transition_manager');
+        $transitionManager();
     }
 }
