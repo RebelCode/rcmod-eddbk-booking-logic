@@ -87,15 +87,17 @@ class BookingStateMachineProvider implements InvocableInterface
     {
         $booking = func_get_arg(0);
 
-        $c = $this->_getContainer();
-        $x = $this->_getConfig();
+        $container = $this->_getContainer();
+        $config = $this->_getConfig();
+        $status = $booking->getStatus();
+        $state = ($status === null)? BookingStatusInterface::STATUS_NONE : $status;
 
-        return $c->get('booking_state_machine_factory')->make(
+        return $container->get('booking_state_machine_factory')->make(
             [
-                'event_manager'     => $c->get('event_manager'),
-                'initial_state'     => $booking->getStatus(),
-                'transitions'       => $x['booking_status_transitions'],
-                'event_name_format' => $x['booking_event_state_machine']['event_name_format'],
+                'event_manager'     => $container->get('event_manager'),
+                'initial_state'     => $state,
+                'transitions'       => $config['booking_status_transitions'],
+                'event_name_format' => $config['booking_event_state_machine']['event_name_format'],
                 'event_params'      => [
                     'booking' => $booking,
                 ],
