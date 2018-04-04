@@ -31,7 +31,12 @@ class EddBookingsLogicModule extends AbstractBaseModule
      */
     public function __construct($key, $containerFactory, $eventManager, $eventFactory)
     {
-        $this->_initModule($containerFactory, $key, [], $this->_loadPhpConfigFile(EDDBK_BOOKING_LOGIC_MODULE_CONFIG));
+        $this->_initModule(
+            $containerFactory,
+            $key,
+            ['booking_logic'],
+            $this->_loadPhpConfigFile(EDDBK_BOOKING_LOGIC_MODULE_CONFIG)
+        );
         $this->_initModuleEvents($eventManager, $eventFactory);
     }
 
@@ -48,7 +53,15 @@ class EddBookingsLogicModule extends AbstractBaseModule
             [
                 'booking_state_machine_provider' => function(ContainerInterface $c) use ($config) {
                     return new BookingStateMachineProvider($c, $config);
-                }
+                },
+                'booking_transition_manager'     => function(ContainerInterface $c) use ($config) {
+                    return new BookingTransitionManager(
+                        $c->get('booking_transitioner'),
+                        $c->get('event_manager'),
+                        $c->get('event_factory'),
+                        $config['booking_status_transitions']
+                    );
+                },
             ]
         );
     }
