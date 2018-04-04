@@ -8,7 +8,7 @@ define('EDDBK_BOOKING_LOGIC_MODULE_CONFIG', __DIR__ . DIRECTORY_SEPARATOR . 'con
 define('EDDBK_BOOKING_LOGIC_MODULE_KEY', 'eddbk_booking_logic');
 
 return function(ContainerInterface $c) {
-    return new EddBookingLogicModule(
+    return new EddBookingsLogicModule(
         EDDBK_BOOKING_LOGIC_MODULE_KEY,
         $c->get('container_factory'),
         $c->get('event_manager'),
