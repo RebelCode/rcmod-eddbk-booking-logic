@@ -1,47 +1,52 @@
 <?php
 
+use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as S;
+use RebelCode\EddBookings\Logic\Module\BookingTransitionInterface as T;
+
 return [
     'booking_event_state_machine' => [
-        'event_name_format' => 'on_booking_transition'
+        'event_name_format' => 'on_booking_transition',
     ],
-    'booking_status_transitions' => [
-        'none' => [
-            'in_cart',
-            'draft'
+    'booking_status_transitions'  => [
+        S::STATUS_NONE      => [
+            T::TRANSITION_CART  => S::STATUS_IN_CART,
+            T::TRANSITION_DRAFT => S::STATUS_DRAFT,
         ],
-        'in_cart' => [
-            'pending'
+        S::STATUS_IN_CART   => [
+            T::TRANSITION_SUBMIT => S::STATUS_PENDING,
         ],
-        'draft' => [
-            'pending'
+        S::STATUS_DRAFT     => [
+            T::TRANSITION_SUBMIT => S::STATUS_PENDING,
+            T::TRANSITION_DRAFT  => S::STATUS_DRAFT,
         ],
-        'pending' => [
-            'approve',
-            'reject'
+        S::STATUS_PENDING   => [
+            T::TRANSITION_APPROVE => S::STATUS_APPROVED,
+            T::TRANSITION_REJECT  => S::STATUS_REJECTED,
         ],
-        'approved' => [
-            'schedule',
-            'cancel'
+        S::STATUS_APPROVED  => [
+            T::TRANSITION_SCHEDULE => S::STATUS_SCHEDULED,
+            T::TRANSITION_CANCEL   => S::STATUS_CANCELLED,
         ],
-        'rejected' => [
+        S::STATUS_REJECTED  => [
+            T::TRANSITION_SUBMIT => S::STATUS_PENDING,
         ],
-        'scheduled' => [
-            'complete',
-            'cancel'
+        S::STATUS_SCHEDULED => [
+            T::TRANSITION_COMPLETE => S::STATUS_COMPLETED,
+            T::TRANSITION_CANCEL   => S::STATUS_CANCELLED,
         ],
-        'completed' => [
-            'draft',
-            'pending',
-            'approved',
-            'scheduled',
-            'completed'
+        S::STATUS_COMPLETED => [
+            T::TRANSITION_DRAFT    => S::STATUS_DRAFT,
+            T::TRANSITION_SUBMIT   => S::STATUS_PENDING,
+            T::TRANSITION_APPROVE  => S::STATUS_APPROVED,
+            T::TRANSITION_SCHEDULE => S::STATUS_SCHEDULED,
+            T::TRANSITION_CANCEL   => S::STATUS_CANCELLED,
         ],
-        'cancelled' => [
-            'draft',
-            'pending',
-            'approved',
-            'scheduled',
-            'completed'
-        ]
-    ]
+        S::STATUS_CANCELLED => [
+            T::TRANSITION_DRAFT    => S::STATUS_DRAFT,
+            T::TRANSITION_SUBMIT   => S::STATUS_PENDING,
+            T::TRANSITION_APPROVE  => S::STATUS_APPROVED,
+            T::TRANSITION_SCHEDULE => S::STATUS_SCHEDULED,
+            T::TRANSITION_COMPLETE => S::STATUS_COMPLETED,
+        ],
+    ],
 ];
