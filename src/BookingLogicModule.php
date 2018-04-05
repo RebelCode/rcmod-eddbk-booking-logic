@@ -16,7 +16,7 @@ use RebelCode\Modular\Module\AbstractBaseModule;
  *
  * @since [*next-version*]
  */
-class EddBookingsLogicModule extends AbstractBaseModule
+class BookingLogicModule extends AbstractBaseModule
 {
     /**
      * Constructor.
