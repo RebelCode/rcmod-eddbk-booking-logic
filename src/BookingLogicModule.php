@@ -40,7 +40,7 @@ class BookingLogicModule extends AbstractBaseModule
         $eventManager,
         $eventFactory
     ) {
-        $this->_initModule($key, $dependencies, $containerFactory, $configFactory, $compContainerFactory);
+        $this->_initModule($key, $dependencies, $configFactory, $containerFactory, $compContainerFactory);
         $this->_initModuleEvents($eventManager, $eventFactory);
     }
 
