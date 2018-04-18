@@ -23,21 +23,24 @@ class BookingLogicModule extends AbstractBaseModule
      *
      * @since [*next-version*]
      *
-     * @param string|Stringable              $key              The module key.
-     * @param ContainerFactoryInterface|null $containerFactory The container factory, if any.
-     * @param EventManagerInterface|null     $eventManager     The event manager, if any.
-     * @param EventFactoryInterface|null     $eventFactory     The event factory, if any.
-     *
-     * @throws InternalException
+     * @param string|Stringable         $key                  The module key.
+     * @param string[]|Stringable[]     $dependencies         The module dependencies.
+     * @param ContainerFactoryInterface $configFactory        The config factory.
+     * @param ContainerFactoryInterface $containerFactory     The container factory.
+     * @param ContainerFactoryInterface $compContainerFactory The composite container factory.
+     * @param EventManagerInterface     $eventManager         The event manager.
+     * @param EventFactoryInterface     $eventFactory         The event factory.
      */
-    public function __construct($key, $containerFactory, $eventManager, $eventFactory)
-    {
-        $this->_initModule(
-            $containerFactory,
-            $key,
-            ['booking_logic'],
-            $this->_loadPhpConfigFile(EDDBK_BOOKING_LOGIC_MODULE_CONFIG)
-        );
+    public function __construct(
+        $key,
+        $dependencies,
+        $configFactory,
+        $containerFactory,
+        $compContainerFactory,
+        $eventManager,
+        $eventFactory
+    ) {
+        $this->_initModule($key, $dependencies, $containerFactory, $configFactory, $compContainerFactory);
         $this->_initModuleEvents($eventManager, $eventFactory);
     }
 
@@ -45,14 +48,15 @@ class BookingLogicModule extends AbstractBaseModule
      * {@inheritdoc}
      *
      * @since [*next-version*]
+     *
+     * @throws InternalException
      */
     public function setup()
     {
-        $config = $this->_getConfig();
-
-        return $this->_createContainer(
+        return $this->_setupContainer(
+            $this->_loadPhpConfigFile(EDDBK_BOOKING_LOGIC_MODULE_CONFIG),
             [
-                'booking_transitioner'           => function(ContainerInterface $c) {
+                'booking_transitioner'           => function (ContainerInterface $c) {
                     return new EventsDelegateTransitioner(
                         new FactoryStateMachineTransitioner(
                             $c->get('booking_state_machine_provider'),
@@ -62,15 +66,15 @@ class BookingLogicModule extends AbstractBaseModule
                         $c->get('event_factory')
                     );
                 },
-                'booking_state_machine_provider' => function(ContainerInterface $c) use ($config) {
-                    return new BookingStateMachineProvider($c, $config);
+                'booking_state_machine_provider' => function (ContainerInterface $c) {
+                    return new BookingStateMachineProvider($c);
                 },
-                'booking_transition_manager'     => function(ContainerInterface $c) use ($config) {
+                'booking_transition_manager'     => function (ContainerInterface $c) {
                     return new BookingTransitionManager(
                         $c->get('booking_transitioner'),
                         $c->get('event_manager'),
                         $c->get('event_factory'),
-                        $config['booking_status_transitions']
+                        $c->get('booking_logic/status_transitions')
                     );
                 },
             ]

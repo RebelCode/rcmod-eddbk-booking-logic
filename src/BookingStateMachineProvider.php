@@ -2,7 +2,6 @@
 
 namespace RebelCode\EddBookings\Logic\Module;
 
-use ArrayAccess;
 use Dhii\Data\Container\ContainerAwareTrait;
 use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
 use Dhii\Data\Container\NormalizeContainerCapableTrait;
@@ -10,8 +9,6 @@ use Dhii\Exception\CreateInvalidArgumentExceptionCapableTrait;
 use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Invocation\InvocableInterface;
 use Psr\Container\ContainerInterface;
-use RebelCode\Modular\Config\ConfigAwareTrait;
-use stdClass;
 
 /**
  * Provides a state machine for a particular booking-transition combo.
@@ -26,13 +23,6 @@ class BookingStateMachineProvider implements InvocableInterface
      * @since [*next-version*]
      */
     use ContainerAwareTrait;
-
-    /*
-     * Provides config awareness.
-     *
-     * @since [*next-version*]
-     */
-    use ConfigAwareTrait;
 
     /*
      * Provides container normalization functionality.
@@ -67,15 +57,11 @@ class BookingStateMachineProvider implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param ContainerInterface                            $container The DI container.
-     * @param array|ArrayAccess|stdClass|ContainerInterface $config    The configuration.
+     * @param ContainerInterface $container The DI container.
      */
-    public function __construct(
-        ContainerInterface $container,
-        $config
-    ) {
+    public function __construct(ContainerInterface $container)
+    {
         $this->_setContainer($container);
-        $this->_setConfig($config);
     }
 
     /**
@@ -88,16 +74,15 @@ class BookingStateMachineProvider implements InvocableInterface
         $booking = func_get_arg(0);
 
         $container = $this->_getContainer();
-        $config = $this->_getConfig();
-        $status = $booking->getStatus();
-        $state = ($status === null)? BookingStatusInterface::STATUS_NONE : $status;
+        $status    = $booking->getStatus();
+        $state     = ($status === null) ? BookingStatusInterface::STATUS_NONE : $status;
 
         return $container->get('booking_state_machine_factory')->make(
             [
                 'event_manager'     => $container->get('event_manager'),
                 'initial_state'     => $state,
-                'transitions'       => $config['booking_status_transitions'],
-                'event_name_format' => $config['booking_event_state_machine']['event_name_format'],
+                'transitions'       => $container->get('booking_logic/status_transitions'),
+                'event_name_format' => $container->get('booking_logic/transition_event_format'),
                 'event_params'      => [
                     'booking' => $booking,
                 ],
