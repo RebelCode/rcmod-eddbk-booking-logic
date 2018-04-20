@@ -6,6 +6,17 @@ use RebelCode\EddBookings\Logic\Module\BookingTransitionInterface as T;
 return [
     'booking_logic' => [
         'transition_event_format' => 'on_booking_transition',
+        'statuses'                => [
+            S::STATUS_NONE,
+            S::STATUS_IN_CART,
+            S::STATUS_DRAFT,
+            S::STATUS_PENDING,
+            S::STATUS_APPROVED,
+            S::STATUS_REJECTED,
+            S::STATUS_SCHEDULED,
+            S::STATUS_COMPLETED,
+            S::STATUS_CANCELLED,
+        ],
         'status_transitions'      => [
             S::STATUS_NONE      => [
                 T::TRANSITION_CART  => S::STATUS_IN_CART,
