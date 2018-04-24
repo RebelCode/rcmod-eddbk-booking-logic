@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "7149a09ce9e6e375e00c26e705e63ae2",
+    "content-hash": "d144605b1cffa437ebb304162611b5fb",
     "packages": [
         {
             "name": "dhii/args-list-validation",
@@ -1684,16 +1684,16 @@
         },
         {
             "name": "dhii/map",
-            "version": "v0.1-alpha3",
+            "version": "v0.1-alpha4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/map.git",
-                "reference": "271cf27ac64e1c18d0889ff17cacb319ffa23543"
+                "reference": "30a2dc83f2d6d57f73126dc5cdb7a37836bd81d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/map/zipball/271cf27ac64e1c18d0889ff17cacb319ffa23543",
-                "reference": "271cf27ac64e1c18d0889ff17cacb319ffa23543",
+                "url": "https://api.github.com/repos/Dhii/map/zipball/30a2dc83f2d6d57f73126dc5cdb7a37836bd81d8",
+                "reference": "30a2dc83f2d6d57f73126dc5cdb7a37836bd81d8",
                 "shasum": ""
             },
             "require": {
@@ -1735,7 +1735,7 @@
                 }
             ],
             "description": "An iterable container implementation.",
-            "time": "2018-04-06T12:46:26+00:00"
+            "time": "2018-04-23T14:57:36+00:00"
         },
         {
             "name": "dhii/modular-interface",
@@ -3010,12 +3010,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/modular.git",
-                "reference": "19d062be6698d3a1fe2375f84ca9e67faf18ab43"
+                "reference": "45929be986400f3162eeca7bc93db9a4c861a900"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/modular/zipball/19d062be6698d3a1fe2375f84ca9e67faf18ab43",
-                "reference": "19d062be6698d3a1fe2375f84ca9e67faf18ab43",
+                "url": "https://api.github.com/repos/RebelCode/modular/zipball/45929be986400f3162eeca7bc93db9a4c861a900",
+                "reference": "45929be986400f3162eeca7bc93db9a4c861a900",
                 "shasum": ""
             },
             "require": {
@@ -3062,7 +3062,7 @@
                 }
             ],
             "description": "A module system.",
-            "time": "2018-04-18T15:42:50+00:00"
+            "time": "2018-04-18T16:59:00+00:00"
         },
         {
             "name": "rebelcode/module-iterator-abstract",
@@ -3118,12 +3118,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/rcmod-booking-logic.git",
-                "reference": "f3e165f4a4938e3556ccfaa7e086e1528fd26dfa"
+                "reference": "be2465e2b94b1eb720d7f6e433f1b1036cdef717"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/rcmod-booking-logic/zipball/f3e165f4a4938e3556ccfaa7e086e1528fd26dfa",
-                "reference": "f3e165f4a4938e3556ccfaa7e086e1528fd26dfa",
+                "url": "https://api.github.com/repos/RebelCode/rcmod-booking-logic/zipball/be2465e2b94b1eb720d7f6e433f1b1036cdef717",
+                "reference": "be2465e2b94b1eb720d7f6e433f1b1036cdef717",
                 "shasum": ""
             },
             "require": {
@@ -3159,7 +3159,7 @@
                 }
             ],
             "description": "A RebelCode module for booking logic.",
-            "time": "2018-04-18T14:56:08+00:00"
+            "time": "2018-04-18T15:46:27+00:00"
         },
         {
             "name": "rebelcode/rcmod-wp-bookings-cqrs",
@@ -3167,12 +3167,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/rcmod-wp-bookings-cqrs.git",
-                "reference": "f7aeb7b9afb3599c53ae217e50390c62a66fda9b"
+                "reference": "18d3c48e7f7591226ed18627099f31adb3a0dd41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/rcmod-wp-bookings-cqrs/zipball/f7aeb7b9afb3599c53ae217e50390c62a66fda9b",
-                "reference": "f7aeb7b9afb3599c53ae217e50390c62a66fda9b",
+                "url": "https://api.github.com/repos/RebelCode/rcmod-wp-bookings-cqrs/zipball/18d3c48e7f7591226ed18627099f31adb3a0dd41",
+                "reference": "18d3c48e7f7591226ed18627099f31adb3a0dd41",
                 "shasum": ""
             },
             "require": {
@@ -3205,7 +3205,7 @@
                 }
             ],
             "description": "A RebelCode module that provides the WordPress CQRS resource models for RebelCode booking plugins.",
-            "time": "2018-04-18T09:52:09+00:00"
+            "time": "2018-04-24T10:39:23+00:00"
         },
         {
             "name": "rebelcode/rcmod-wp-cqrs",
@@ -3213,12 +3213,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/rcmod-wp-cqrs.git",
-                "reference": "7213f5569f4f35226178c063bc9ebc5128689bf5"
+                "reference": "e995e131cfe675e7b9b8e01bf6665d2b33d1a768"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/rcmod-wp-cqrs/zipball/7213f5569f4f35226178c063bc9ebc5128689bf5",
-                "reference": "7213f5569f4f35226178c063bc9ebc5128689bf5",
+                "url": "https://api.github.com/repos/RebelCode/rcmod-wp-cqrs/zipball/e995e131cfe675e7b9b8e01bf6665d2b33d1a768",
+                "reference": "e995e131cfe675e7b9b8e01bf6665d2b33d1a768",
                 "shasum": ""
             },
             "require": {
@@ -3255,7 +3255,7 @@
                 }
             ],
             "description": "A RebelCode module that provides services for WordPress CQRS resource models.",
-            "time": "2018-04-18T15:09:04+00:00"
+            "time": "2018-04-24T14:36:22+00:00"
         },
         {
             "name": "rebelcode/session-generator",

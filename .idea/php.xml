@@ -93,6 +93,21 @@
       <path value="$PROJECT_DIR$/vendor/dhii/output-renderer-interface" />
       <path value="$PROJECT_DIR$/vendor/dhii/cqrs-resource-model-interface" />
       <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/dhii/expression-interface" />
+      <path value="$PROJECT_DIR$/vendor/dhii/sql-interface" />
+      <path value="$PROJECT_DIR$/vendor/dhii/output-renderer-base" />
+      <path value="$PROJECT_DIR$/vendor/dhii/expression-renderer-base" />
+      <path value="$PROJECT_DIR$/vendor/dhii/type-interface" />
+      <path value="$PROJECT_DIR$/vendor/rebelcode/sql-cqrs-resource-models-abstract" />
+      <path value="$PROJECT_DIR$/vendor/rebelcode/expression-wp-query-builder" />
+      <path value="$PROJECT_DIR$/vendor/rebelcode/rcmod-wp-cqrs" />
+      <path value="$PROJECT_DIR$/vendor/dhii/expression-renderer-abstract" />
+      <path value="$PROJECT_DIR$/vendor/dhii/expression-renderer-interface" />
+      <path value="$PROJECT_DIR$/vendor/dhii/output-renderer-abstract" />
+      <path value="$PROJECT_DIR$/vendor/dhii/evaluable-interface" />
+      <path value="$PROJECT_DIR$/vendor/rebelcode/rcmod-wp-bookings-cqrs" />
+      <path value="$PROJECT_DIR$/vendor/rebelcode/sql-expression-renderer" />
+      <path value="$PROJECT_DIR$/vendor/rebelcode/wp-cqrs-resource-models" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />

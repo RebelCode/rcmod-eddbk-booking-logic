@@ -13,6 +13,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^5.4 | ^7.0",
+        "dhii/validation-base": "^0.2-alpha2",
         "rebelcode/modular": "dev-task/initial-classes",
         "rebelcode/rcmod-booking-logic": "dev-task/initial-module-code",
         "rebelcode/rcmod-wp-bookings-cqrs": "dev-task/initial-module-code"
