@@ -134,12 +134,12 @@ class BookingSessionValidator extends AbstractValidatorBase
             $matchingTime,
             // Booking and session have the same service IDs
             $b->eq(
-                $b->ef('service', 'service_id'),
+                $b->ef('session', 'service_id'),
                 $b->lit($booking->get('service_id'))
             ),
             // Booking and session have the same resource IDs
             $b->eq(
-                $b->ef('service', 'resource_id'),
+                $b->ef('session', 'resource_id'),
                 $b->lit($booking->get('resource_id'))
             )
         );
