@@ -173,7 +173,7 @@ class BookingTransitionManager implements InvocableInterface
      */
     public function __invoke()
     {
-        $this->_attach('on_booking_transition', [$this, '_beforeTransition']);
+        $this->_attach('on_booking_transition', [$this, '_onTransition']);
         $this->_attach('after_booking_transition', [$this, '_afterPendingTransition']);
         $this->_attach('after_booking_transition', [$this, '_afterApprovedTransition']);
     }
@@ -185,7 +185,7 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @param TransitionEventInterface $event The transition event.
      */
-    public function _beforeTransition(TransitionEventInterface $event)
+    public function _onTransition(TransitionEventInterface $event)
     {
         $booking = $event->getParam('booking');
 
