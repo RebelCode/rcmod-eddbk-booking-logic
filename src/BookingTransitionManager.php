@@ -191,6 +191,7 @@ class BookingTransitionManager implements InvocableInterface
     public function __invoke()
     {
         $this->_attach('on_booking_transition', [$this, '_onTransition']);
+        $this->_attach('on_booking_transition', [$this, '_onNewBookingTransition']);
         $this->_attach('after_booking_transition', [$this, '_afterPendingTransition']);
         $this->_attach('after_booking_transition', [$this, '_afterApprovedTransition']);
     }
@@ -221,6 +222,26 @@ class BookingTransitionManager implements InvocableInterface
         } catch (NotFoundExceptionInterface $notFoundException) {
             $event->abortTransition(true);
             $event->stopPropagation(true);
+        }
+    }
+
+    /**
+     * Validates bookings on certain transitions.
+     *
+     * @since [*next-version*]
+     *
+     * @param TransitionEventInterface $event
+     */
+    public function _onNewBookingTransition(TransitionEventInterface $event)
+    {
+        $transition = $event->getTransition();
+
+        if (
+            $transition === T::TRANSITION_DRAFT ||
+            $transition === T::TRANSITION_CART ||
+            $transition === T::TRANSITION_SUBMIT
+        ) {
+            $this->_validateBookingInTransitionEvent($event);
         }
     }
 
