@@ -71,10 +71,29 @@ class BookingLogicModule extends AbstractBaseModule
                 },
                 'booking_transition_manager'     => function (ContainerInterface $c) {
                     return new BookingTransitionManager(
+                        $c->get('booking_validator'),
                         $c->get('booking_transitioner'),
                         $c->get('event_manager'),
                         $c->get('event_factory'),
                         $c->get('booking_logic/status_transitions')
+                    );
+                },
+                'booking_validator'              => function (ContainerInterface $c) {
+                    return new BookingValidator([
+                        $c->get('booking_conflict_validator'),
+                        $c->get('booking_session_validator'),
+                    ]);
+                },
+                'booking_conflict_validator'     => function (ContainerInterface $c) {
+                    return new BookingConflictValidator(
+                        $c->get('bookings_select_rm'),
+                        $c->get('sql_expression_builder')
+                    );
+                },
+                'booking_session_validator'      => function (ContainerInterface $c) {
+                    return new BookingSessionValidator(
+                        $c->get('sessions_select_rm'),
+                        $c->get('sql_expression_builder')
                     );
                 },
             ]
