@@ -155,7 +155,7 @@ class BookingTransitionManager implements InvocableInterface
     protected function _getPossibleTransitionsForStatus($status)
     {
         $transitions = $this->_getPossibleTransitions();
-        $status = ($status === null) ? S::STATUS_NONE : $status;
+        $status      = ($status === null) ? S::STATUS_NONE : $status;
 
         try {
             return $this->_containerGet($transitions, $status);
@@ -210,8 +210,8 @@ class BookingTransitionManager implements InvocableInterface
             throw $this->_createRuntimeException($this->__('Transition does not have a valid booking instance'));
         }
 
-        $status = $booking->getStatus();
-        $status = ($status === null) ? S::STATUS_NONE : $status;
+        $status     = $booking->getStatus();
+        $status     = ($status === null) ? S::STATUS_NONE : $status;
         $transition = $event->getTransition();
 
         try {
@@ -229,11 +229,11 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param EventInterface $event The event.
+     * @param TransitionEventInterface $event The event.
      */
-    public function _afterPendingTransition(EventInterface $event)
+    public function _afterPendingTransition(TransitionEventInterface $event)
     {
-        if ($event->getParam('transition') === T::TRANSITION_SUBMIT) {
+        if ($event->getTransition() === T::TRANSITION_SUBMIT) {
             $booking = $event->getParam('booking');
             $booking = $this->transitioner->transition($booking, T::TRANSITION_APPROVE);
 
@@ -246,11 +246,11 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param EventInterface $event The event.
+     * @param TransitionEventInterface $event The event.
      */
-    public function _afterApprovedTransition(EventInterface $event)
+    public function _afterApprovedTransition(TransitionEventInterface $event)
     {
-        if ($event->getParam('transition') === T::TRANSITION_APPROVE) {
+        if ($event->getTransition() === T::TRANSITION_APPROVE) {
             $booking = $event->getParam('booking');
             $booking = $this->transitioner->transition($booking, T::TRANSITION_SCHEDULE);
 
