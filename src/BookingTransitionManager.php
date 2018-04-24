@@ -14,6 +14,10 @@ use Dhii\Exception\CreateOutOfRangeExceptionCapableTrait;
 use Dhii\Invocation\InvocableInterface;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
+use Dhii\Validation\Exception\ValidationFailedException;
+use Dhii\Validation\Exception\ValidationFailedExceptionInterface;
+use Dhii\Validation\ValidatorAwareTrait;
+use Dhii\Validation\ValidatorInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\EventManager\EventInterface;
@@ -34,6 +38,16 @@ use stdClass;
  */
 class BookingTransitionManager implements InvocableInterface
 {
+    /*
+     * Provides awareness of a validator.
+     *
+     * @since [*next-version*]
+     */
+    use ValidatorAwareTrait {
+        _getValidator as _getBookingValidator;
+        _setValidator as _setBookingValidator;
+    }
+
     /*
      * Provides awareness of a booking transitioner.
      *
@@ -109,17 +123,20 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param TransitionerInterface                         $transitioner The booking transitioner.
-     * @param EventManagerInterface                         $eventManager The event manager.
-     * @param EventFactoryInterface                         $eventFactory The event factory.
-     * @param array|ArrayAccess|stdClass|ContainerInterface $transitions  The possible transitions.
+     * @param ValidatorInterface                            $bookingValidator The booking validator.
+     * @param TransitionerInterface                         $transitioner     The booking transitioner.
+     * @param EventManagerInterface                         $eventManager     The event manager.
+     * @param EventFactoryInterface                         $eventFactory     The event factory.
+     * @param array|ArrayAccess|stdClass|ContainerInterface $transitions      The possible transitions.
      */
     public function __construct(
+        ValidatorInterface $bookingValidator,
         TransitionerInterface $transitioner,
         EventManagerInterface $eventManager,
         EventFactoryInterface $eventFactory,
         $transitions
     ) {
+        $this->_setBookingValidator($bookingValidator);
         $this->_setTransitioner($transitioner);
         $this->_setEventManager($eventManager);
         $this->_setEventFactory($eventFactory);
@@ -238,6 +255,33 @@ class BookingTransitionManager implements InvocableInterface
             $booking = $this->transitioner->transition($booking, T::TRANSITION_SCHEDULE);
 
             $event->setParams(['booking' => $booking] + $event->getParams());
+        }
+    }
+
+    /**
+     * Validates a booking in a transition event.
+     *
+     * @since [*next-version*]
+     *
+     * @param TransitionEventInterface $event The event from which to retrieve the booking and the transition.
+     */
+    protected function _validateBookingInTransitionEvent(TransitionEventInterface $event)
+    {
+        /* @var $booking */
+        $booking = $event->getParam('booking');
+
+        if (!($booking instanceof BookingInterface)) {
+            throw $this->_createOutOfRangeException(
+                $this->__('Transition event does not contain a booking'), null, null, null
+            );
+        }
+
+        try {
+            $this->_getBookingValidator()->validate($booking);
+        } catch (ValidationFailedExceptionInterface $validationFailedException) {
+            $event->abortTransition(true);
+            $event->stopPropagation(true);
+            throw $validationFailedException;
         }
     }
 }
