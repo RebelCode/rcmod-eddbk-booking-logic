@@ -70,16 +70,7 @@ class BookingLogicModule extends AbstractBaseModule
                     );
                 },
                 'transition_event_factory' => function(ContainerInterface $c) {
-                    return new GenericCallbackFactory(function ($config) {
-                        $name = $this->_containerGet($config, EventFactory::K_CFG_NAME);
-                        $params = $this->_containerGet($config, EventFactory::K_CFG_PARAMS);
-                        $target = $this->_containerHas($config, EventFactory::K_CFG_TARGET)
-                            ? $this->_containerGet($config, EventFactory::K_CFG_TARGET)
-                            : null;
-                        $transition = $this->_containerGet($config, 'transition');
-
-                        return new TransitionEvent($name, $transition, $target, $params);
-                    });
+                    return new TransitionEventFactory();
                 },
                 'booking_state_machine_provider' => function (ContainerInterface $c) {
                     return new BookingStateMachineProvider($c);
