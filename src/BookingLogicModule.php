@@ -5,11 +5,14 @@ namespace RebelCode\EddBookings\Logic\Module;
 use Dhii\Data\Container\ContainerFactoryInterface;
 use Dhii\Event\EventFactoryInterface;
 use Dhii\Exception\InternalException;
+use Dhii\Factory\GenericCallbackFactory;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Psr\Container\ContainerInterface;
 use Psr\EventManager\EventManagerInterface;
 use RebelCode\Bookings\FactoryStateMachineTransitioner;
+use RebelCode\Modular\Events\EventFactory;
 use RebelCode\Modular\Module\AbstractBaseModule;
+use RebelCode\State\TransitionEvent;
 
 /**
  * Module class for the EDDBK booking logic module.
@@ -65,6 +68,18 @@ class BookingLogicModule extends AbstractBaseModule
                         $c->get('event_manager'),
                         $c->get('event_factory')
                     );
+                },
+                'transition_event_factory' => function(ContainerInterface $c) {
+                    return new GenericCallbackFactory(function ($config) {
+                        $name = $this->_containerGet($config, EventFactory::K_CFG_NAME);
+                        $params = $this->_containerGet($config, EventFactory::K_CFG_PARAMS);
+                        $target = $this->_containerHas($config, EventFactory::K_CFG_TARGET)
+                            ? $this->_containerGet($config, EventFactory::K_CFG_TARGET)
+                            : null;
+                        $transition = $this->_containerGet($config, 'transition');
+
+                        return new TransitionEvent($name, $transition, $target, $params);
+                    });
                 },
                 'booking_state_machine_provider' => function (ContainerInterface $c) {
                     return new BookingStateMachineProvider($c);

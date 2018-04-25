@@ -58,15 +58,31 @@ class EventsDelegateTransitioner implements TransitionerInterface
     public function transition(BookingInterface $booking, $transition)
     {
         // Trigger an event before transitioning, filtering the booking
-        $params = ['booking' => $booking, 'transition' => $transition];
-        $booking = $this->_trigger('before_booking_transition', $params)->getParam('booking');
+        $beforeEvent = $this->_getEventFactory()->make([
+            'name'       => 'before_booking_transition',
+            'transition' => $transition,
+            'target'     => $booking,
+            'params'     => [
+                'booking'    => $booking,
+                'transition' => $transition,
+            ],
+        ]);
+        $booking     = $this->_trigger($beforeEvent)->getParam('booking');
 
         // Transition the booking
         $booking = $this->_getTransitioner()->transition($booking, $transition);
 
         // Trigger an event after transitioning, filtering the booking
-        $params = ['booking' => $booking, 'transition' => $transition];
-        $booking = $this->_trigger('after_booking_transition', $params)->getParam('booking');
+        $afterEvent = $this->_getEventFactory()->make([
+            'name'       => 'after_booking_transition',
+            'transition' => $transition,
+            'target'     => $booking,
+            'params'     => [
+                'booking'    => $booking,
+                'transition' => $transition,
+            ],
+        ]);
+        $booking    = $this->_trigger($afterEvent)->getParam('booking');
 
         return $booking;
     }
