@@ -95,15 +95,7 @@ class BookingConflictValidator extends AbstractValidatorBase implements Validato
         $errors       = [];
         $condition    = $this->_buildBookingConflictCondition($booking);
         $conflicts    = $this->_getBookingsSelectRm()->select($condition);
-        $numConflicts = 0;
-
-        // Count the number of conflicting bookings with either an "approved" or "scheduled" status
-        foreach ($conflicts as $_conflict) {
-            $status = $_conflict->get('status');
-            if ($status === S::STATUS_APPROVED || $status === S::STATUS_SCHEDULED) {
-                ++$numConflicts;
-            }
-        }
+        $numConflicts = count($conflicts);
 
         if ($numConflicts > 0) {
             $errors[] = $this->__('The booking conflicts with %d other booking(s)', [$numConflicts]);
@@ -150,6 +142,19 @@ class BookingConflictValidator extends AbstractValidatorBase implements Validato
 
         return $b->and(
             $overlap,
+            // Booking status is either of the below:
+            $b->or(
+            // Booking status is `approved`
+                $b->eq(
+                    $b->ef('booking', 'status'),
+                    $b->lit(S::STATUS_APPROVED)
+                ),
+                // Booking status is `scheduled`
+                $b->eq(
+                    $b->ef('booking', 'status'),
+                    $b->lit(S::STATUS_SCHEDULED)
+                )
+            ),
             // Bookings' service IDs are the same
             $b->eq(
                 $b->ef('booking', 'service_id'),
