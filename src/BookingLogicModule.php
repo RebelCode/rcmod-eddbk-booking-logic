@@ -66,7 +66,7 @@ class BookingLogicModule extends AbstractBaseModule
                             $c->get('booking_factory')
                         ),
                         $c->get('event_manager'),
-                        $c->get('event_factory')
+                        $c->get('transition_event_factory')
                     );
                 },
                 'transition_event_factory' => function(ContainerInterface $c) {
