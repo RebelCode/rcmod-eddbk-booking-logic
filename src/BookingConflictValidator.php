@@ -101,7 +101,7 @@ class BookingConflictValidator extends AbstractValidatorBase implements Validato
         foreach ($conflicts as $_conflict) {
             $status = $_conflict->get('status');
             if ($status === S::STATUS_APPROVED || $status === S::STATUS_SCHEDULED) {
-                $numConflicts ++;
+                ++$numConflicts;
             }
         }
 

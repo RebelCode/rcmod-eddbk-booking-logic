@@ -5,14 +5,11 @@ namespace RebelCode\EddBookings\Logic\Module;
 use Dhii\Data\Container\ContainerFactoryInterface;
 use Dhii\Event\EventFactoryInterface;
 use Dhii\Exception\InternalException;
-use Dhii\Factory\GenericCallbackFactory;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Psr\Container\ContainerInterface;
 use Psr\EventManager\EventManagerInterface;
 use RebelCode\Bookings\FactoryStateMachineTransitioner;
-use RebelCode\Modular\Events\EventFactory;
 use RebelCode\Modular\Module\AbstractBaseModule;
-use RebelCode\State\TransitionEvent;
 
 /**
  * Module class for the EDDBK booking logic module.
@@ -59,7 +56,7 @@ class BookingLogicModule extends AbstractBaseModule
         return $this->_setupContainer(
             $this->_loadPhpConfigFile(EDDBK_BOOKING_LOGIC_MODULE_CONFIG),
             [
-                'booking_transitioner'           => function (ContainerInterface $c) {
+                'booking_transitioner' => function (ContainerInterface $c) {
                     return new EventsDelegateTransitioner(
                         new FactoryStateMachineTransitioner(
                             $c->get('booking_state_machine_provider'),
@@ -69,13 +66,13 @@ class BookingLogicModule extends AbstractBaseModule
                         $c->get('transition_event_factory')
                     );
                 },
-                'transition_event_factory' => function(ContainerInterface $c) {
+                'transition_event_factory' => function (ContainerInterface $c) {
                     return new TransitionEventFactory();
                 },
                 'booking_state_machine_provider' => function (ContainerInterface $c) {
                     return new BookingStateMachineProvider($c);
                 },
-                'booking_transition_manager'     => function (ContainerInterface $c) {
+                'booking_transition_manager' => function (ContainerInterface $c) {
                     return new BookingTransitionManager(
                         $c->get('booking_validator'),
                         $c->get('booking_transitioner'),
@@ -84,19 +81,19 @@ class BookingLogicModule extends AbstractBaseModule
                         $c->get('booking_logic/status_transitions')
                     );
                 },
-                'booking_validator'              => function (ContainerInterface $c) {
+                'booking_validator' => function (ContainerInterface $c) {
                     return new BookingValidator([
                         $c->get('booking_conflict_validator'),
                         $c->get('booking_session_validator'),
                     ]);
                 },
-                'booking_conflict_validator'     => function (ContainerInterface $c) {
+                'booking_conflict_validator' => function (ContainerInterface $c) {
                     return new BookingConflictValidator(
                         $c->get('bookings_select_rm'),
                         $c->get('sql_expression_builder')
                     );
                 },
-                'booking_session_validator'      => function (ContainerInterface $c) {
+                'booking_session_validator' => function (ContainerInterface $c) {
                     return new BookingSessionValidator(
                         $c->get('sessions_select_rm'),
                         $c->get('sql_expression_builder')

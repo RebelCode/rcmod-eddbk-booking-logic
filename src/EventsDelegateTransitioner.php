@@ -67,7 +67,7 @@ class EventsDelegateTransitioner implements TransitionerInterface
                 'transition' => $transition,
             ],
         ]);
-        $booking     = $this->_trigger($beforeEvent)->getParam('booking');
+        $booking = $this->_trigger($beforeEvent)->getParam('booking');
 
         // Transition the booking
         $booking = $this->_getTransitioner()->transition($booking, $transition);
@@ -82,7 +82,7 @@ class EventsDelegateTransitioner implements TransitionerInterface
                 'transition' => $transition,
             ],
         ]);
-        $booking    = $this->_trigger($afterEvent)->getParam('booking');
+        $booking = $this->_trigger($afterEvent)->getParam('booking');
 
         return $booking;
     }
