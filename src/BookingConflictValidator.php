@@ -135,11 +135,11 @@ class BookingConflictValidator extends AbstractValidatorBase implements Validato
         // Another booking starts within range of this booking
         $overlap = $b->or(
             $b->and(
-                $b->gt($s1, $s2),
+                $b->gte($s1, $s2),
                 $b->lt($s1, $e2)
             ),
             $b->and(
-                $b->gt($s2, $s1),
+                $b->gte($s2, $s1),
                 $b->lt($s2, $e1)
             )
         );
