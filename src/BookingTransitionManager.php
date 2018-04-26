@@ -210,7 +210,7 @@ class BookingTransitionManager implements InvocableInterface
         }
 
         $status     = $booking->getStatus();
-        $status     = ($status === null) ? S::STATUS_NONE : $status;
+        $status     = empty($status) ? S::STATUS_NONE : $status;
         $transition = $event->getTransition();
 
         try {
