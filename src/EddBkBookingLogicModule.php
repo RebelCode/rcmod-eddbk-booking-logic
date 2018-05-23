@@ -90,7 +90,7 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                 'booking_conflict_validator' => function (ContainerInterface $c) {
                     return new BookingConflictValidator(
                         $c->get('bookings_select_rm'),
-                        $c->get('sql_expression_builder')
+                        $c->get('booking_conflict_condition_factory')
                     );
                 },
                 'booking_session_validator' => function (ContainerInterface $c) {
@@ -99,6 +99,9 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                         $c->get('sql_expression_builder')
                     );
                 },
+                'booking_conflict_condition_factory' => function (ContainerInterface $c) {
+                    return new BookingConflictConditionFactory($c->get('sql_expression_builder'));
+                }
             ]
         );
     }
