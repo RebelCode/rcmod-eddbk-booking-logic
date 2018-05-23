@@ -103,6 +103,7 @@ class BookingConflictConditionFactory implements FactoryInterface
             )
         );
 
+        // Booking must be able to provide additional data in order to tighten the condition
         if (!($booking instanceof ContainerInterface)) {
             return $overlap;
         }
@@ -115,11 +116,6 @@ class BookingConflictConditionFactory implements FactoryInterface
                     $b->ef('booking', 'status'),
                     $b->lit(S::STATUS_IN_CART)
                 )
-            ),
-            // Bookings' service IDs are the same
-            $b->eq(
-                $b->ef('booking', 'service_id'),
-                $b->lit($booking->get('service_id'))
             ),
             // Bookings' resource IDs are the same
             $b->eq(
