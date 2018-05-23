@@ -112,7 +112,7 @@ class BookingConflictConditionFactory implements FactoryInterface
             $overlap,
             // Booking status is either of the below:
             $b->or(
-            // Booking status is `approved`
+                // Booking status is `approved`
                 $b->eq(
                     $b->ef('booking', 'status'),
                     $b->lit(S::STATUS_APPROVED)
