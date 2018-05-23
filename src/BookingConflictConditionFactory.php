@@ -123,11 +123,6 @@ class BookingConflictConditionFactory implements FactoryInterface
                     $b->lit(S::STATUS_SCHEDULED)
                 )
             ),
-            // Bookings' service IDs are the same
-            $b->eq(
-                $b->ef('booking', 'service_id'),
-                $b->lit($booking->get('service_id'))
-            ),
             // Bookings' resource IDs are the same
             $b->eq(
                 $b->ef('booking', 'resource_id'),
