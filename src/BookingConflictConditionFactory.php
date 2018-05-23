@@ -109,6 +109,13 @@ class BookingConflictConditionFactory implements FactoryInterface
 
         return $b->and(
             $overlap,
+            // Booking status is not `in_cart`
+            $b->not(
+                $b->eq(
+                    $b->ef('booking', 'status'),
+                    $b->lit(S::STATUS_IN_CART)
+                )
+            ),
             // Bookings' service IDs are the same
             $b->eq(
                 $b->ef('booking', 'service_id'),
