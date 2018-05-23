@@ -2,16 +2,13 @@
 
 namespace RebelCode\EddBookings\Logic\Module;
 
-use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as S;
-use Dhii\Expression\TermInterface;
+use Dhii\Factory\FactoryAwareTrait;
+use Dhii\Factory\FactoryInterface;
 use Dhii\Storage\Resource\SelectCapableInterface;
 use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Validation\AbstractValidatorBase;
 use Dhii\Validation\ValidatorInterface;
-use Psr\Container\ContainerInterface;
 use RebelCode\Bookings\BookingInterface;
-use RebelCode\Expression\Builder\ExpressionBuilderAwareTrait;
-use RebelCode\Expression\Builder\ExpressionBuilderInterface;
 
 /**
  * A booking validator that validates whether a booking conflicts with another.
@@ -21,7 +18,7 @@ use RebelCode\Expression\Builder\ExpressionBuilderInterface;
 class BookingConflictValidator extends AbstractValidatorBase implements ValidatorInterface
 {
     /* @since [*next-version*] */
-    use ExpressionBuilderAwareTrait;
+    use FactoryAwareTrait;
 
     /* @since [*next-version*] */
     use NormalizeIterableCapableTrait;
@@ -36,17 +33,26 @@ class BookingConflictValidator extends AbstractValidatorBase implements Validato
     protected $bookingsSelectRm;
 
     /**
+     * The expression builder.
+     *
+     * @since [*next-version*]
+     *
+     * @var object
+     */
+    protected $exprBuilder;
+
+    /**
      * Constructor.
      *
      * @since [*next-version*]
      *
-     * @param SelectCapableInterface     $bookingsSelectRm The SELECT resource model for bookings.
-     * @param ExpressionBuilderInterface $exprBuilder      The expression builder.
+     * @param SelectCapableInterface $bookingsSelectRm         The SELECT resource model for bookings.
+     * @param FactoryInterface       $conflictConditionFactory The factory that creates the booking conflict condition.
      */
-    public function __construct($bookingsSelectRm, $exprBuilder)
+    public function __construct($bookingsSelectRm, $conflictConditionFactory)
     {
         $this->_setBookingsSelectRm($bookingsSelectRm);
-        $this->_setExpressionBuilder($exprBuilder);
+        $this->_setFactory($conflictConditionFactory);
     }
 
     /**
@@ -93,7 +99,7 @@ class BookingConflictValidator extends AbstractValidatorBase implements Validato
         }
 
         $errors       = [];
-        $condition    = $this->_buildBookingConflictCondition($booking);
+        $condition    = $this->_getFactory()->make(['booking' => $booking]);
         $conflicts    = $this->_getBookingsSelectRm()->select($condition);
         $numConflicts = count($conflicts);
 
@@ -102,69 +108,5 @@ class BookingConflictValidator extends AbstractValidatorBase implements Validato
         }
 
         return $errors;
-    }
-
-    /**
-     * Builds the condition for retrieving the conflicting bookings.
-     *
-     * @since [*next-version*]
-     *
-     * @param BookingInterface $booking The booking instance for which to retrieve conflicting bookings.
-     *
-     * @return TermInterface The built condition.
-     */
-    protected function _buildBookingConflictCondition(BookingInterface $booking)
-    {
-        $b = $this->_getExpressionBuilder();
-
-        $s1 = $b->lit($booking->getStart());
-        $s2 = $b->ef('booking', 'start');
-        $e1 = $b->lit($booking->getEnd());
-        $e2 = $b->ef('booking', 'end');
-
-        // This booking starts within range of another
-        // or
-        // Another booking starts within range of this booking
-        $overlap = $b->or(
-            $b->and(
-                $b->gte($s1, $s2),
-                $b->lt($s1, $e2)
-            ),
-            $b->and(
-                $b->gte($s2, $s1),
-                $b->lt($s2, $e1)
-            )
-        );
-
-        if (!($booking instanceof ContainerInterface)) {
-            return $overlap;
-        }
-
-        return $b->and(
-            $overlap,
-            // Booking status is either of the below:
-            $b->or(
-            // Booking status is `approved`
-                $b->eq(
-                    $b->ef('booking', 'status'),
-                    $b->lit(S::STATUS_APPROVED)
-                ),
-                // Booking status is `scheduled`
-                $b->eq(
-                    $b->ef('booking', 'status'),
-                    $b->lit(S::STATUS_SCHEDULED)
-                )
-            ),
-            // Bookings' service IDs are the same
-            $b->eq(
-                $b->ef('booking', 'service_id'),
-                $b->lit($booking->get('service_id'))
-            ),
-            // Bookings' resource IDs are the same
-            $b->eq(
-                $b->ef('booking', 'resource_id'),
-                $b->lit($booking->get('resource_id'))
-            )
-        );
     }
 }
