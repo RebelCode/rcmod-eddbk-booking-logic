@@ -2,7 +2,6 @@
 
 namespace RebelCode\EddBookings\Logic\Module;
 
-use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as S;
 use Dhii\Expression\TermInterface;
 use Dhii\Storage\Resource\SelectCapableInterface;
 use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
@@ -10,8 +9,7 @@ use Dhii\Validation\AbstractValidatorBase;
 use Dhii\Validation\ValidatorInterface;
 use Psr\Container\ContainerInterface;
 use RebelCode\Bookings\BookingInterface;
-use RebelCode\Expression\Builder\ExpressionBuilderAwareTrait;
-use RebelCode\Expression\Builder\ExpressionBuilderInterface;
+use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as S;
 
 /**
  * A booking validator that validates whether a booking conflicts with another.
@@ -20,9 +18,6 @@ use RebelCode\Expression\Builder\ExpressionBuilderInterface;
  */
 class BookingConflictValidator extends AbstractValidatorBase implements ValidatorInterface
 {
-    /* @since [*next-version*] */
-    use ExpressionBuilderAwareTrait;
-
     /* @since [*next-version*] */
     use NormalizeIterableCapableTrait;
 
@@ -36,17 +31,26 @@ class BookingConflictValidator extends AbstractValidatorBase implements Validato
     protected $bookingsSelectRm;
 
     /**
+     * The expression builder.
+     *
+     * @since [*next-version*]
+     *
+     * @var object
+     */
+    protected $exprBuilder;
+
+    /**
      * Constructor.
      *
      * @since [*next-version*]
      *
-     * @param SelectCapableInterface     $bookingsSelectRm The SELECT resource model for bookings.
-     * @param ExpressionBuilderInterface $exprBuilder      The expression builder.
+     * @param SelectCapableInterface  $bookingsSelectRm The SELECT resource model for bookings.
+     * @param object                  $exprBuilder      The expression builder.
      */
     public function __construct($bookingsSelectRm, $exprBuilder)
     {
         $this->_setBookingsSelectRm($bookingsSelectRm);
-        $this->_setExpressionBuilder($exprBuilder);
+        $this->exprBuilder = $exprBuilder;
     }
 
     /**
@@ -115,7 +119,7 @@ class BookingConflictValidator extends AbstractValidatorBase implements Validato
      */
     protected function _buildBookingConflictCondition(BookingInterface $booking)
     {
-        $b = $this->_getExpressionBuilder();
+        $b = $this->exprBuilder;
 
         $s1 = $b->lit($booking->getStart());
         $s2 = $b->ef('booking', 'start');
