@@ -103,6 +103,7 @@ class BookingConflictConditionFactory implements FactoryInterface
             )
         );
 
+        // Booking must be able to provide additional data in order to tighten the condition
         if (!($booking instanceof ContainerInterface)) {
             return $overlap;
         }
