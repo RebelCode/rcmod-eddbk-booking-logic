@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c84408ec60b2c8b0e9c8aaec534a7420",
+    "content-hash": "bb614b2068e9ece342f3f26538d86a69",
     "packages": [
         {
             "name": "dhii/args-list-validation",
@@ -1243,6 +1243,57 @@
             "time": "2018-03-22T11:25:07+00:00"
         },
         {
+            "name": "dhii/machine-state-machine-interface",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/machine-state-machine-interface.git",
+                "reference": "55adc44cb930d1c57d0996d61725884e9c8008b8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/machine-state-machine-interface/zipball/55adc44cb930d1c57d0996d61725884e9c8008b8",
+                "reference": "55adc44cb930d1c57d0996d61725884e9c8008b8",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/data-key-value-aware-interface": "^0.1",
+                "dhii/exception-interface": "^0.1|^0.2",
+                "dhii/factory-interface": "^0.1-alpha1",
+                "dhii/stringable-interface": "^0.1",
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\State\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces for state machines.",
+            "time": "2018-05-15T08:27:56+00:00"
+        },
+        {
             "name": "dhii/module-interface",
             "version": "v0.1-alpha1",
             "source": {
@@ -1375,6 +1426,55 @@
             ],
             "description": "A temporary PSR-14 repository.",
             "time": "2016-07-06T18:43:19+00:00"
+        },
+        {
+            "name": "dhii/state-machine-abstract",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/state-machine-abstract.git",
+                "reference": "cb5f706edd74d1c747f09f505b859255b13a5b27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/state-machine-abstract/zipball/cb5f706edd74d1c747f09f505b859255b13a5b27",
+                "reference": "cb5f706edd74d1c747f09f505b859255b13a5b27",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/machine-state-machine-interface": "^0.1-alpha1",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\State\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Abstract functionality for state machines.",
+            "time": "2018-05-15T09:04:58+00:00"
         },
         {
             "name": "dhii/stringable-interface",
@@ -1771,6 +1871,56 @@
             "time": "2017-02-14T16:28:37+00:00"
         },
         {
+            "name": "rebelcode/booking-abstract",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RebelCode/booking-abstract.git",
+                "reference": "1db2fef27c4f32d3cc629179debd05cb059040e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RebelCode/booking-abstract/zipball/1db2fef27c4f32d3cc629179debd05cb059040e4",
+                "reference": "1db2fef27c4f32d3cc629179debd05cb059040e4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "dhii/time-interface": "^0.1-alpha1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1",
+                "rebelcode/booking-interface": "^0.1-alpha1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RebelCode\\Bookings\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "RebelCode",
+                    "email": "dev@rebelcode.com"
+                }
+            ],
+            "description": "Abstract functionality for bookings",
+            "time": "2018-05-14T14:32:52+00:00"
+        },
+        {
             "name": "rebelcode/booking-interface",
             "version": "v0.1-alpha1",
             "source": {
@@ -1820,6 +1970,111 @@
             ],
             "description": "Interfaces for bookings.",
             "time": "2018-05-14T14:14:42+00:00"
+        },
+        {
+            "name": "rebelcode/booking-transitioner",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RebelCode/booking-transitioner.git",
+                "reference": "b039c072eedf7074ee435da5289a582f634ae581"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RebelCode/booking-transitioner/zipball/b039c072eedf7074ee435da5289a582f634ae581",
+                "reference": "b039c072eedf7074ee435da5289a582f634ae581",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/exception-helper-base": "0.1-alpha1",
+                "dhii/factory-base": "^0.1-alpha3",
+                "dhii/i18n-helper-base": "^0.1",
+                "dhii/machine-state-machine-interface": "^0.1-alpha1",
+                "dhii/state-machine-abstract": "^0.1-alpha1",
+                "dhii/stringable-interface": "^0.1",
+                "php": "^5.4 | ^7.0",
+                "rebelcode/booking-abstract": "^0.1-alpha1",
+                "rebelcode/booking-interface": "^0.1-alpha1",
+                "rebelcode/booking-transitioner-interface": "^0.1-alpha1"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/cqrs-resource-model-interface": "0.1-alpha2",
+                "dhii/factory-interface": "0.1-alpha2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "psr/container": "^1.0",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RebelCode\\Bookings\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "RebelCode",
+                    "email": "dev@rebelcode.com"
+                }
+            ],
+            "description": "Booking transitioner implementations.",
+            "time": "2018-05-15T09:38:49+00:00"
+        },
+        {
+            "name": "rebelcode/booking-transitioner-interface",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RebelCode/booking-transitioner-interface.git",
+                "reference": "a1a6eaf0ec9fac22b78d082468f513b827d958ca"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RebelCode/booking-transitioner-interface/zipball/a1a6eaf0ec9fac22b78d082468f513b827d958ca",
+                "reference": "a1a6eaf0ec9fac22b78d082468f513b827d958ca",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/factory-interface": "^0.1-alpha1",
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/exception-interface": "^0.1 | ^0.2-alpha1",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1",
+                "rebelcode/booking-interface": "^0.1-alpha1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RebelCode\\Bookings\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "RebelCode",
+                    "email": "dev@rebelcode.com"
+                }
+            ],
+            "description": "Interfaces for objects that can transition bookings.",
+            "time": "2018-05-15T08:01:55+00:00"
         },
         {
             "name": "rebelcode/modular",

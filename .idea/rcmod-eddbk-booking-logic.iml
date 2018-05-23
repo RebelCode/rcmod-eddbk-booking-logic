@@ -30,11 +30,13 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/invocable-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/invocable-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/iterator-helper-base" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/machine-state-machine-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/module-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/normalization-helper-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/output-renderer-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/php-cs-fixer-config" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/psr-14" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/state-machine-abstract" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/stringable-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/time-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/type-interface" />
@@ -58,7 +60,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/container" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/psr/log" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/ptrofimov/xpmock" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/booking-abstract" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/booking-interface" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/booking-transitioner" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/booking-transitioner-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/modular" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/module-iterator-abstract" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/satooshi/php-coveralls" />
