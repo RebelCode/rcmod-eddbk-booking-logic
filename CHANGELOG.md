@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
 
+## [0.1-alpha3] - 2018-05-24
+### Fixed
+- The booking collision condition now excludes the booking, which is being checked for collision.
+
 ## [0.1-alpha2] - 2018-05-24
 ### Changed
 - Bookings with `in_cart` status no longer collide, meaning that there can be more than one such booking for the same resource.
