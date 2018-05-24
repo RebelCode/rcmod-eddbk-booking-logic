@@ -14,6 +14,7 @@ use Dhii\Factory\FactoryInterface;
 use Dhii\I18n\StringTranslatingTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use Psr\Container\ContainerInterface;
+use RebelCode\Bookings\BookingInterface;
 use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as S;
 
 /**
@@ -81,9 +82,15 @@ class BookingConflictConditionFactory implements FactoryInterface
      */
     public function make($config = null)
     {
-        $b = $this->exprBuilder;
-
         $booking = $this->_containerGet($config, 'booking');
+
+        if (!($booking instanceof BookingInterface)) {
+            throw $this->_createOutOfRangeException(
+                $this->__('Booking in factory config is not a valid booking instance'), null, null, $booking
+            );
+        }
+
+        $b = $this->exprBuilder;
 
         $s1 = $b->lit($booking->getStart());
         $s2 = $b->ef('booking', 'start');
@@ -92,7 +99,7 @@ class BookingConflictConditionFactory implements FactoryInterface
 
         // This booking starts within range of another booking in storage
         // or a booking in storage starts within range of this booking
-        $overlap = $b->or(
+        $condition = $b->or(
             $b->and(
                 $b->gte($s1, $s2),
                 $b->lt($s1, $e2)
@@ -103,13 +110,29 @@ class BookingConflictConditionFactory implements FactoryInterface
             )
         );
 
+        $id = $booking->getId();
+
+        if (!empty($id)) {
+            $condition = $b->and(
+                // Booking overlaps
+                $condition,
+                // and is not this booking
+                $b->not(
+                    $b->eq(
+                        $b->ef('booking', 'id'),
+                        $b->lit($booking->getId())
+                    )
+                )
+            );
+        }
+
         // Booking must be able to provide additional data in order to tighten the condition
         if (!($booking instanceof ContainerInterface)) {
-            return $overlap;
+            return $condition;
         }
 
         return $b->and(
-            $overlap,
+            $condition,
             // Booking status is not `in_cart`
             $b->not(
                 $b->eq(
