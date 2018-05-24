@@ -112,7 +112,7 @@ class BookingConflictConditionFactory implements FactoryInterface
 
         $id = $booking->getId();
 
-        if (empty($id)) {
+        if (!empty($id)) {
             $condition = $b->and(
                 // Booking overlaps
                 $condition,
