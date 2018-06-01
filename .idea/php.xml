@@ -85,6 +85,7 @@
       <path value="$PROJECT_DIR$/vendor/dhii/machine-state-machine-interface" />
       <path value="$PROJECT_DIR$/vendor/dhii/state-machine-abstract" />
       <path value="$PROJECT_DIR$/vendor/rebelcode/booking-transitioner" />
+      <path value="$PROJECT_DIR$/vendor/dhii/transition-event-interface" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />
