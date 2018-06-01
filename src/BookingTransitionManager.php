@@ -196,7 +196,7 @@ class BookingTransitionManager implements InvocableInterface
     }
 
     /**
-     * Limits the transitions allows for bookings to only those declared in the module config.
+     * Limits the allowed transitions for bookings to only those declared in the module config.
      *
      * @since [*next-version*]
      *
@@ -229,7 +229,7 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param TransitionEventInterface $event
+     * @param TransitionEventInterface $event The transition event.
      */
     public function _validateBookingOnTransition(TransitionEventInterface $event)
     {
@@ -279,7 +279,7 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param TransitionEventInterface $event The event.
+     * @param TransitionEventInterface $event The transition event.
      */
     public function _afterPendingTransition(TransitionEventInterface $event)
     {
@@ -296,7 +296,7 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param TransitionEventInterface $event The event.
+     * @param TransitionEventInterface $event The transition event.
      */
     public function _afterApprovedTransition(TransitionEventInterface $event)
     {
@@ -313,7 +313,7 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param TransitionEventInterface $event The event from which to retrieve the booking and the transition.
+     * @param TransitionEventInterface $event The transition event.
      */
     protected function _validateBookingInTransitionEvent(TransitionEventInterface $event)
     {
