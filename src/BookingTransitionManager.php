@@ -188,8 +188,7 @@ class BookingTransitionManager implements InvocableInterface
      */
     public function __invoke()
     {
-        $this->_attach('on_booking_transition', [$this, '_onTransition']);
-        $this->_attach('on_booking_transition', [$this, '_onNewBookingTransition']);
+        $this->_attach('on_booking_transition', [$this, '_limitCompleteBookingTransition']);
         $this->_attach('after_booking_transition', [$this, '_afterPendingTransition']);
         $this->_attach('after_booking_transition', [$this, '_afterApprovedTransition']);
     }
@@ -240,6 +239,36 @@ class BookingTransitionManager implements InvocableInterface
             $transition === T::TRANSITION_SUBMIT
         ) {
             $this->_validateBookingInTransitionEvent($event);
+        }
+    }
+
+    /**
+     * Limits the booking `complete` transition to past bookings only.
+     *
+     * @since [*next-version*]
+     *
+     * @param TransitionEventInterface $event The transition event.
+     */
+    public function _limitCompleteBookingTransition(TransitionEventInterface $event)
+    {
+        $transition = $event->getTransition();
+
+        if ($transition === T::TRANSITION_COMPLETE) {
+            $booking = $event->getParam('booking');
+
+            if (!($booking instanceof BookingInterface)) {
+                throw $this->_createOutOfRangeException(
+                    $this->__('Transition event does not contain a booking'), null, null, null
+                );
+            }
+
+            if ($booking->getStart() > time()) {
+                $event->abortTransition(true);
+
+                throw $this->_createRuntimeException(
+                    $this->__('Only past bookings can be transitioned with `complete`'), null, null
+                );
+            }
         }
     }
 
