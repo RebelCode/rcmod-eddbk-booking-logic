@@ -188,20 +188,21 @@ class BookingTransitionManager implements InvocableInterface
      */
     public function __invoke()
     {
-        $this->_attach('on_booking_transition', [$this, '_onTransition']);
-        $this->_attach('on_booking_transition', [$this, '_onNewBookingTransition']);
+        $this->_attach('on_booking_transition', [$this, '_limitTransitionsToConfig']);
+        $this->_attach('on_booking_transition', [$this, '_validateBookingOnTransition']);
+        $this->_attach('on_booking_transition', [$this, '_limitCompleteBookingTransition']);
         $this->_attach('after_booking_transition', [$this, '_afterPendingTransition']);
         $this->_attach('after_booking_transition', [$this, '_afterApprovedTransition']);
     }
 
     /**
-     * Limits the transitions allows for bookings to only those declared in the module config.
+     * Limits the allowed transitions for bookings to only those declared in the module config.
      *
      * @since [*next-version*]
      *
      * @param TransitionEventInterface $event The transition event.
      */
-    public function _onTransition(TransitionEventInterface $event)
+    public function _limitTransitionsToConfig(TransitionEventInterface $event)
     {
         $booking = $event->getParam('booking');
 
@@ -228,9 +229,9 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param TransitionEventInterface $event
+     * @param TransitionEventInterface $event The transition event.
      */
-    public function _onNewBookingTransition(TransitionEventInterface $event)
+    public function _validateBookingOnTransition(TransitionEventInterface $event)
     {
         $transition = $event->getTransition();
 
@@ -244,11 +245,41 @@ class BookingTransitionManager implements InvocableInterface
     }
 
     /**
+     * Limits the booking `complete` transition to past bookings only.
+     *
+     * @since [*next-version*]
+     *
+     * @param TransitionEventInterface $event The transition event.
+     */
+    public function _limitCompleteBookingTransition(TransitionEventInterface $event)
+    {
+        $transition = $event->getTransition();
+
+        if ($transition === T::TRANSITION_COMPLETE) {
+            $booking = $event->getParam('booking');
+
+            if (!($booking instanceof BookingInterface)) {
+                throw $this->_createOutOfRangeException(
+                    $this->__('Transition event does not contain a booking'), null, null, null
+                );
+            }
+
+            if ($booking->getStart() > time()) {
+                $event->abortTransition(true);
+
+                throw $this->_createRuntimeException(
+                    $this->__('Only past bookings can be transitioned with `complete`'), null, null
+                );
+            }
+        }
+    }
+
+    /**
      * Attempts an approval transition after a booking is submitted.
      *
      * @since [*next-version*]
      *
-     * @param TransitionEventInterface $event The event.
+     * @param TransitionEventInterface $event The transition event.
      */
     public function _afterPendingTransition(TransitionEventInterface $event)
     {
@@ -265,7 +296,7 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param TransitionEventInterface $event The event.
+     * @param TransitionEventInterface $event The transition event.
      */
     public function _afterApprovedTransition(TransitionEventInterface $event)
     {
@@ -282,7 +313,7 @@ class BookingTransitionManager implements InvocableInterface
      *
      * @since [*next-version*]
      *
-     * @param TransitionEventInterface $event The event from which to retrieve the booking and the transition.
+     * @param TransitionEventInterface $event The transition event.
      */
     protected function _validateBookingInTransitionEvent(TransitionEventInterface $event)
     {
