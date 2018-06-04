@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
+### Added
+- Now restricting `complete` transition to past bookings only.
 
 ## [0.1-alpha3] - 2018-05-24
 ### Fixed
