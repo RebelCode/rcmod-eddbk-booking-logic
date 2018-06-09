@@ -104,18 +104,19 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                     return new BookingConflictConditionFactory($c->get('sql_expression_builder'));
                 },
                 'wp_unbooked_sessions_condition' => function (ContainerInterface $c) {
-                    $b = $c->get('sql_expression_builder');
+                    $b  = $c->get('sql_expression_builder');
+                    $bt = $c->get('cqrs/bookings/table');
 
                     // Sessions are considered to be unbooked if:
                     // Booking ID is null - meaning no booking matched the JOIN
                     // Booking status is `in_cart` - meaning a booking matched the JOIN but does not block the session
                     return $b->or(
-                        $b->eq(
-                            $b->ef('booking', 'id'),
+                        $b->is(
+                            $b->ef($bt, 'id'),
                             $b->lit(null)
                         ),
                         $b->eq(
-                            $b->ef('booking', 'status'),
+                            $b->ef($bt, 'status'),
                             $b->lit(BookingStatus::STATUS_IN_CART)
                         )
                     );
