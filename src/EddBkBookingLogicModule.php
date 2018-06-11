@@ -10,6 +10,7 @@ use Psr\Container\ContainerInterface;
 use Psr\EventManager\EventManagerInterface;
 use RebelCode\Bookings\FactoryStateMachineTransitioner;
 use RebelCode\Modular\Module\AbstractBaseModule;
+use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as BookingStatus;
 
 /**
  * Module class for the EDDBK booking logic module.
@@ -101,7 +102,25 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                 },
                 'booking_conflict_condition_factory' => function (ContainerInterface $c) {
                     return new BookingConflictConditionFactory($c->get('sql_expression_builder'));
-                }
+                },
+                'wp_unbooked_sessions_condition' => function (ContainerInterface $c) {
+                    $b  = $c->get('sql_expression_builder');
+                    $bt = $c->get('cqrs/bookings/table');
+
+                    // Sessions are considered to be unbooked if:
+                    // Booking ID is null - meaning no booking matched the JOIN
+                    // Booking status is `in_cart` - meaning a booking matched the JOIN but does not block the session
+                    return $b->or(
+                        $b->is(
+                            $b->ef($bt, 'id'),
+                            $b->lit(null)
+                        ),
+                        $b->eq(
+                            $b->ef($bt, 'status'),
+                            $b->lit(BookingStatus::STATUS_IN_CART)
+                        )
+                    );
+                },
             ]
         );
     }
