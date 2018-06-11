@@ -238,7 +238,8 @@ class BookingTransitionManager implements InvocableInterface
         if (
             $transition === T::TRANSITION_DRAFT ||
             $transition === T::TRANSITION_CART ||
-            $transition === T::TRANSITION_SUBMIT
+            $transition === T::TRANSITION_SUBMIT ||
+            $transition === T::TRANSITION_SCHEDULE
         ) {
             $this->_validateBookingInTransitionEvent($event);
         }
