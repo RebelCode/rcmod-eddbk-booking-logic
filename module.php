@@ -10,7 +10,7 @@ define('EDDBK_BOOKING_LOGIC_MODULE_KEY', 'eddbk_booking_logic');
 return function (ContainerInterface $c) {
     return new EddBkBookingLogicModule(
         EDDBK_BOOKING_LOGIC_MODULE_KEY,
-        ['booking_logic'],
+        ['wp_bookings_cqrs', 'booking_logic'],
         $c->get('config_factory'),
         $c->get('container_factory'),
         $c->get('composite_container_factory'),
