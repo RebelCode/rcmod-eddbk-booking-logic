@@ -109,7 +109,9 @@ class EddBkBookingLogicModule extends AbstractBaseModule
 
                     // Sessions are considered to be unbooked if:
                     // Booking ID is null - meaning no booking matched the JOIN
-                    // Booking status is `in_cart` - meaning a booking matched the JOIN but does not block the session
+                    // Or booking status is `in_cart`
+                    // OR booking status is `cancelled`
+                    // The latter 2 mean a booking DID match, but we are excluding them from blocking the session
                     return $b->or(
                         $b->is(
                             $b->ef($bt, 'id'),
@@ -118,6 +120,10 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                         $b->eq(
                             $b->ef($bt, 'status'),
                             $b->lit(BookingStatus::STATUS_IN_CART)
+                        ),
+                        $b->eq(
+                            $b->ef($bt, 'status'),
+                            $b->lit(BookingStatus::STATUS_CANCELLED)
                         )
                     );
                 },
