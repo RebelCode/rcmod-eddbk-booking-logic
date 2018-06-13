@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
 
+## [0.1-alpha6] - 2018-06-13
+### Changelog
+- Now depending on `wp_bookings_cqrs`.
+- Bookings with `cancelled` status no longer block other bookings.
+
 ## [0.1-alpha5] - 2018-06-11
 ### Changed
 - Statuses have now available transitions to themselves.
