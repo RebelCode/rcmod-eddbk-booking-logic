@@ -170,6 +170,20 @@ class BookingConflictConditionFactory implements FactoryInterface
             );
         }
 
+        // For each non-blocking status, AND the condition to a "NOT EQUAL TO" sub-condition for that status
+        // This makes the condition disregard bookings with these statuses
+        foreach ($this->_getNonBlockingStatuses() as $nonBlockingStatus) {
+            $b->and(
+                $condition,
+                $b->not(
+                    $b->eq(
+                        $b->ef('booking', 'status'),
+                        $b->lit($nonBlockingStatus)
+                    )
+                )
+            );
+        }
+
         // Booking must be able to provide additional data in order to tighten the condition
         if (!($booking instanceof ContainerInterface)) {
             return $condition;
@@ -177,20 +191,6 @@ class BookingConflictConditionFactory implements FactoryInterface
 
         return $b->and(
             $condition,
-            // Booking status is not `in_cart`
-            $b->not(
-                $b->eq(
-                    $b->ef('booking', 'status'),
-                    $b->lit(S::STATUS_IN_CART)
-                )
-            ),
-            // Booking status is not `cancelled`
-            $b->not(
-                $b->eq(
-                    $b->ef('booking', 'status'),
-                    $b->lit(S::STATUS_CANCELLED)
-                )
-            ),
             // Bookings' resource IDs are the same
             $b->eq(
                 $b->ef('booking', 'resource_id'),
