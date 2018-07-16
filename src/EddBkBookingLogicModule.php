@@ -107,28 +107,33 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                     );
                 },
                 'wp_unbooked_sessions_condition' => function (ContainerInterface $c) {
-                    $b  = $c->get('sql_expression_builder');
+                    // Expression builder
+                    $b = $c->get('sql_expression_builder');
+                    // Bookings table
                     $bt = $c->get('cqrs/bookings/table');
+                    // Non blocking statuses
+                    $nbs = $c->get('booking_logic/non_blocking_statuses');
 
                     // Sessions are considered to be unbooked if:
-                    // Booking ID is null - meaning no booking matched the JOIN
-                    // Or booking status is `in_cart`
-                    // OR booking status is `cancelled`
-                    // The latter 2 mean a booking DID match, but we are excluding them from blocking the session
-                    return $b->or(
-                        $b->is(
-                            $b->ef($bt, 'id'),
-                            $b->lit(null)
-                        ),
-                        $b->eq(
-                            $b->ef($bt, 'status'),
-                            $b->lit(BookingStatus::STATUS_IN_CART)
-                        ),
-                        $b->eq(
-                            $b->ef($bt, 'status'),
-                            $b->lit(BookingStatus::STATUS_CANCELLED)
-                        )
+                    // 1. Booking ID is null - meaning no booking matched the JOIN
+                    // 2. Booking ID is non-null, but booking status is non-blocking
+
+                    $condition = $b->is(
+                        $b->ef($bt, 'id'),
+                        $b->lit(null)
                     );
+
+                    foreach ($nbs as $status) {
+                        $b->or(
+                            $condition,
+                            $b->eq(
+                                $b->ef($bt, 'status'),
+                                $b->lit($status)
+                            )
+                        );
+                    }
+
+                    return $condition;
                 },
             ]
         );
