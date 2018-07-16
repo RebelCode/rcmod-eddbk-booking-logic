@@ -10,7 +10,6 @@ use Psr\Container\ContainerInterface;
 use Psr\EventManager\EventManagerInterface;
 use RebelCode\Bookings\FactoryStateMachineTransitioner;
 use RebelCode\Modular\Module\AbstractBaseModule;
-use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as BookingStatus;
 
 /**
  * Module class for the EDDBK booking logic module.
