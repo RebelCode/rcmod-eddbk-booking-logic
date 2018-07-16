@@ -184,6 +184,13 @@ class BookingConflictConditionFactory implements FactoryInterface
                     $b->lit(S::STATUS_IN_CART)
                 )
             ),
+            // Booking status is not `cancelled`
+            $b->not(
+                $b->eq(
+                    $b->ef('booking', 'status'),
+                    $b->lit(S::STATUS_CANCELLED)
+                )
+            ),
             // Bookings' resource IDs are the same
             $b->eq(
                 $b->ef('booking', 'resource_id'),
