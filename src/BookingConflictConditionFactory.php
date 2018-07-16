@@ -17,7 +17,6 @@ use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use RebelCode\Bookings\BookingInterface;
-use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as S;
 use stdClass;
 use Traversable;
 
