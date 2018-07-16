@@ -12,6 +12,10 @@ use Dhii\Factory\Exception\CreateCouldNotMakeExceptionCapableTrait;
 use Dhii\Factory\Exception\CreateFactoryExceptionCapableTrait;
 use Dhii\Factory\FactoryInterface;
 use Dhii\I18n\StringTranslatingTrait;
+use Dhii\Iterator\CountIterableCapableTrait;
+use Dhii\Iterator\ResolveIteratorCapableTrait;
+use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
+use Dhii\Util\Normalization\NormalizeIntCapableTrait;
 use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
 use InvalidArgumentException;
@@ -35,6 +39,9 @@ class BookingConflictConditionFactory implements FactoryInterface
 
     /* @since [*next-version*] */
     use NormalizeStringCapableTrait;
+
+    /* @since [*next-version*] */
+    use NormalizeArrayCapableTrait;
 
     /* @since [*next-version*] */
     use NormalizeIterableCapableTrait;
@@ -169,15 +176,18 @@ class BookingConflictConditionFactory implements FactoryInterface
             );
         }
 
-        // For each non-blocking status, AND the condition to a "NOT EQUAL TO" sub-condition for that status
-        // This makes the condition disregard bookings with these statuses
-        foreach ($this->_getNonBlockingStatuses() as $nonBlockingStatus) {
-            $b->and(
+        $nonBlockingStatuses = $this->_getNonBlockingStatuses();
+        $nonBlockingStatuses = $this->_normalizeArray($nonBlockingStatuses);
+
+        if (count($nonBlockingStatuses) > 0) {
+            // AND the condition to a "booking status NOT IN (...)" sub-condition, where "..." is the list of non-
+            // blocking booking statuses, to make the condition disregard bookings with those statuses.
+            $condition = $b->and(
                 $condition,
                 $b->not(
-                    $b->eq(
+                    $b->in(
                         $b->ef('booking', 'status'),
-                        $b->lit($nonBlockingStatus)
+                        $b->set($nonBlockingStatuses)
                     )
                 )
             );

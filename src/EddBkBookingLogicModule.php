@@ -5,6 +5,7 @@ namespace RebelCode\EddBookings\Logic\Module;
 use Dhii\Data\Container\ContainerFactoryInterface;
 use Dhii\Event\EventFactoryInterface;
 use Dhii\Exception\InternalException;
+use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Psr\Container\ContainerInterface;
 use Psr\EventManager\EventManagerInterface;
@@ -18,6 +19,9 @@ use RebelCode\Modular\Module\AbstractBaseModule;
  */
 class EddBkBookingLogicModule extends AbstractBaseModule
 {
+    /* @since [*next-version*] */
+    use NormalizeArrayCapableTrait;
+
     /**
      * Constructor.
      *
@@ -112,25 +116,22 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                     $bt = $c->get('cqrs/bookings/table');
                     // Non blocking statuses
                     $nbs = $c->get('booking_logic/non_blocking_statuses');
+                    $nbs = $this->_normalizeArray($nbs);
 
                     // Sessions are considered to be unbooked if:
                     // 1. Booking ID is null - meaning no booking matched the JOIN
                     // 2. Booking ID is non-null, but booking status is non-blocking
 
-                    $condition = $b->is(
-                        $b->ef($bt, 'id'),
-                        $b->lit(null)
+                    $condition = $b->or(
+                        $b->is(
+                            $b->ef($bt, 'id'),
+                            $b->lit(null)
+                        ),
+                        $b->in(
+                            $b->ef($bt, 'status'),
+                            $b->set($nbs)
+                        )
                     );
-
-                    foreach ($nbs as $status) {
-                        $b->or(
-                            $condition,
-                            $b->eq(
-                                $b->ef($bt, 'status'),
-                                $b->lit($status)
-                            )
-                        );
-                    }
 
                     return $condition;
                 },
