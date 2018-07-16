@@ -33,7 +33,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/machine-state-machine-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/module-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/normalization-helper-base" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/output-renderer-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/php-cs-fixer-config" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/psr-14" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/state-machine-abstract" />

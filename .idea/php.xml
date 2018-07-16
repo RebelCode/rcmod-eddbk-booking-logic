@@ -60,7 +60,6 @@
       <path value="$PROJECT_DIR$/vendor/dhii/validation-abstract" />
       <path value="$PROJECT_DIR$/vendor/dhii/validation-base" />
       <path value="$PROJECT_DIR$/vendor/johnpbloch/wordpress-core" />
-      <path value="$PROJECT_DIR$/vendor/dhii/output-renderer-interface" />
       <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
       <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
