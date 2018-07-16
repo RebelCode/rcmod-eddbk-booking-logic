@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
+### Changed
+- Draft bookings no longer block new bookings.
+- Non-blocking booking statuses are now saved in config.
 
 ## [0.1-alpha6] - 2018-06-13
 ### Changelog
