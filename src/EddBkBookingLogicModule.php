@@ -101,7 +101,10 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                     );
                 },
                 'booking_conflict_condition_factory' => function (ContainerInterface $c) {
-                    return new BookingConflictConditionFactory($c->get('sql_expression_builder'));
+                    return new BookingConflictConditionFactory(
+                        $c->get('sql_expression_builder'),
+                        $c->get('booking_logic/non_blocking_statuses')
+                    );
                 },
                 'wp_unbooked_sessions_condition' => function (ContainerInterface $c) {
                     $b  = $c->get('sql_expression_builder');

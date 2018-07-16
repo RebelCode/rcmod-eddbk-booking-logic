@@ -12,10 +12,14 @@ use Dhii\Factory\Exception\CreateCouldNotMakeExceptionCapableTrait;
 use Dhii\Factory\Exception\CreateFactoryExceptionCapableTrait;
 use Dhii\Factory\FactoryInterface;
 use Dhii\I18n\StringTranslatingTrait;
+use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use RebelCode\Bookings\BookingInterface;
 use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as S;
+use stdClass;
+use Traversable;
 
 /**
  * The factory that creates the condition that is used to query for bookings that conflict with a specific booking.
@@ -32,6 +36,9 @@ class BookingConflictConditionFactory implements FactoryInterface
 
     /* @since [*next-version*] */
     use NormalizeStringCapableTrait;
+
+    /* @since [*next-version*] */
+    use NormalizeIterableCapableTrait;
 
     /* @since [*next-version*] */
     use CreateInvalidArgumentExceptionCapableTrait;
@@ -64,15 +71,52 @@ class BookingConflictConditionFactory implements FactoryInterface
     protected $exprBuilder;
 
     /**
+     * A list of non-blocking booking statuses.
+     *
+     * @since [*next-version*]
+     *
+     * @var array|stdClass|Traversable
+     */
+    protected $nonBlockingStatuses;
+
+    /**
      * Constructor.
      *
      * @since [*next-version*]
      *
-     * @param object $exprBuilder The expression builder.
+     * @param object                     $exprBuilder         The expression builder.
+     * @param array|stdClass|Traversable $nonBlockingStatuses The non-blocking booking statuses.
      */
-    public function __construct($exprBuilder)
+    public function __construct($exprBuilder, $nonBlockingStatuses)
     {
         $this->exprBuilder = $exprBuilder;
+        $this->_setNonBlockingStatuses($nonBlockingStatuses);
+    }
+
+    /**
+     * Retrieves the non-blocking booking statuses.
+     *
+     * @since [*next-version*]
+     *
+     * @return array|stdClass|Traversable The non-blocking booking statuses.
+     */
+    protected function _getNonBlockingStatuses()
+    {
+        return $this->nonBlockingStatuses;
+    }
+
+    /**
+     * Sets the non-blocking booking statuses.
+     *
+     * @since [*next-version*]
+     *
+     * @param array|stdClass|Traversable $nonBlockingStatuses The non-blocking booking statuses.
+     *
+     * @throws InvalidArgumentException If the argument is not a traversable list.
+     */
+    protected function _setNonBlockingStatuses($nonBlockingStatuses)
+    {
+        $this->nonBlockingStatuses = $this->_normalizeIterable($nonBlockingStatuses);
     }
 
     /**
