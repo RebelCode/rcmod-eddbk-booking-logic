@@ -5,12 +5,12 @@ namespace RebelCode\EddBookings\Logic\Module;
 use Dhii\Data\Container\ContainerFactoryInterface;
 use Dhii\Event\EventFactoryInterface;
 use Dhii\Exception\InternalException;
+use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Psr\Container\ContainerInterface;
 use Psr\EventManager\EventManagerInterface;
 use RebelCode\Bookings\FactoryStateMachineTransitioner;
 use RebelCode\Modular\Module\AbstractBaseModule;
-use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as BookingStatus;
 
 /**
  * Module class for the EDDBK booking logic module.
@@ -19,6 +19,9 @@ use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as BookingStatus;
  */
 class EddBkBookingLogicModule extends AbstractBaseModule
 {
+    /* @since [*next-version*] */
+    use NormalizeArrayCapableTrait;
+
     /**
      * Constructor.
      *
@@ -101,31 +104,36 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                     );
                 },
                 'booking_conflict_condition_factory' => function (ContainerInterface $c) {
-                    return new BookingConflictConditionFactory($c->get('sql_expression_builder'));
+                    return new BookingConflictConditionFactory(
+                        $c->get('sql_expression_builder'),
+                        $c->get('booking_logic/non_blocking_statuses')
+                    );
                 },
                 'wp_unbooked_sessions_condition' => function (ContainerInterface $c) {
-                    $b  = $c->get('sql_expression_builder');
+                    // Expression builder
+                    $b = $c->get('sql_expression_builder');
+                    // Bookings table
                     $bt = $c->get('cqrs/bookings/table');
+                    // Non blocking statuses
+                    $nbs = $c->get('booking_logic/non_blocking_statuses');
+                    $nbs = $this->_normalizeArray($nbs);
 
                     // Sessions are considered to be unbooked if:
-                    // Booking ID is null - meaning no booking matched the JOIN
-                    // Or booking status is `in_cart`
-                    // OR booking status is `cancelled`
-                    // The latter 2 mean a booking DID match, but we are excluding them from blocking the session
-                    return $b->or(
+                    // 1. Booking ID is null - meaning no booking matched the JOIN
+                    // 2. Booking ID is non-null, but booking status is non-blocking
+
+                    $condition = $b->or(
                         $b->is(
                             $b->ef($bt, 'id'),
                             $b->lit(null)
                         ),
-                        $b->eq(
+                        $b->in(
                             $b->ef($bt, 'status'),
-                            $b->lit(BookingStatus::STATUS_IN_CART)
-                        ),
-                        $b->eq(
-                            $b->ef($bt, 'status'),
-                            $b->lit(BookingStatus::STATUS_CANCELLED)
+                            $b->set($nbs)
                         )
                     );
+
+                    return $condition;
                 },
             ]
         );

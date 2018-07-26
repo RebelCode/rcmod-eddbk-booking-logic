@@ -2,5 +2,10 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vendor/dhii/config-interface" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vendor/dhii/expression-interface" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vendor/dhii/type-interface" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vendor/johnpbloch/wordpress-core" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" vcs="Git" />
   </component>
 </project>

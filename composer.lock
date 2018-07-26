@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "a138bd6e7ff1b42c4c8beece36dab012",
+    "content-hash": "63593e9aa90148e05d6b74c35aaf51b9",
     "packages": [
         {
             "name": "dhii/args-list-validation",
@@ -1198,16 +1198,16 @@
         },
         {
             "name": "dhii/normalization-helper-base",
-            "version": "v0.1-alpha2",
+            "version": "v0.1-alpha4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Dhii/normalization-helper-base.git",
-                "reference": "ecbd44dc80533ec93a8cac1fb8f36ba3697f9798"
+                "reference": "1b64f0ea6b3e32f9478f854f6049500795b51da7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/normalization-helper-base/zipball/ecbd44dc80533ec93a8cac1fb8f36ba3697f9798",
-                "reference": "ecbd44dc80533ec93a8cac1fb8f36ba3697f9798",
+                "url": "https://api.github.com/repos/Dhii/normalization-helper-base/zipball/1b64f0ea6b3e32f9478f854f6049500795b51da7",
+                "reference": "1b64f0ea6b3e32f9478f854f6049500795b51da7",
                 "shasum": ""
             },
             "require": {
@@ -1242,7 +1242,7 @@
                 }
             ],
             "description": "Functionality for normalizing values.",
-            "time": "2018-02-12T09:41:29+00:00"
+            "time": "2018-06-04T08:55:31+00:00"
         },
         {
             "name": "dhii/psr-14",
@@ -2104,6 +2104,59 @@
             "time": "2018-03-08T10:51:04+00:00"
         },
         {
+            "name": "dhii/data-object-abstract",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/data-object-abstract.git",
+                "reference": "6ab979adc2d0c01777af6076dfb66f55bf4fbfe3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/data-object-abstract/zipball/6ab979adc2d0c01777af6076dfb66f55bf4fbfe3",
+                "reference": "6ab979adc2d0c01777af6076dfb66f55bf4fbfe3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "psr/container": "^1.0",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "suggest": {
+                "dhii/exception-helper-base": "For standard exception factories",
+                "dhii/stringable-interface": "To be able to pass stringable objects as keys and messages"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Data\\Object\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Abstract common functionality for data objects",
+            "time": "2018-03-15T12:29:35+00:00"
+        },
+        {
             "name": "dhii/evaluable-interface",
             "version": "v0.1",
             "source": {
@@ -2198,21 +2251,179 @@
             "time": "2018-01-13T14:56:39+00:00"
         },
         {
-            "name": "dhii/output-renderer-interface",
-            "version": "v0.3-alpha1",
+            "name": "dhii/expression-renderer-interface",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Dhii/output-renderer-interface.git",
-                "reference": "2786204ad6b9b79e5f4485aedd700016c13f6668"
+                "url": "https://github.com/Dhii/expression-renderer-interface.git",
+                "reference": "3cfde9f01080a089b873458b607ad51b659257e1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/output-renderer-interface/zipball/2786204ad6b9b79e5f4485aedd700016c13f6668",
-                "reference": "2786204ad6b9b79e5f4485aedd700016c13f6668",
+                "url": "https://api.github.com/repos/Dhii/expression-renderer-interface/zipball/3cfde9f01080a089b873458b607ad51b659257e1",
+                "reference": "3cfde9f01080a089b873458b607ad51b659257e1",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3 | ^7.0",
+                "psr/container": "^1.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Expression\\Renderer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces for expression rendering.",
+            "time": "2018-02-01T15:05:06+00:00"
+        },
+        {
+            "name": "dhii/output-renderer-abstract",
+            "version": "v0.1-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/output-renderer-abstract.git",
+                "reference": "0f6e5eed940025332dd1986d6c771e10f7197b1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/output-renderer-abstract/zipball/0f6e5eed940025332dd1986d6c771e10f7197b1a",
+                "reference": "0f6e5eed940025332dd1986d6c771e10f7197b1a",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/output-renderer-interface": "^0.2 | ^0.3",
+                "php": "^5.4 | ^7.0",
+                "psr/container": "^1.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/exception-interface": "^0.2-alpha3",
+                "dhii/invocable-interface": "^0.1-alpha1",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/validation-interface": "^0.1 | ^0.2-alpha1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "suggest": {
+                "dhii/container-helper-base": "For normalizing context containers"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Output\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Common abstract functionality for output renderers.",
+            "time": "2018-05-10T12:31:09+00:00"
+        },
+        {
+            "name": "dhii/output-renderer-base",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/output-renderer-base.git",
+                "reference": "700483a37016e502be2ead9580bb9258ad8bf17b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/output-renderer-base/zipball/700483a37016e502be2ead9580bb9258ad8bf17b",
+                "reference": "700483a37016e502be2ead9580bb9258ad8bf17b",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/container-helper-base": "^0.1-alpha5",
+                "dhii/exception": "^0.1-alpha4",
+                "dhii/i18n-helper-base": "^0.1-alpha1",
+                "dhii/output-renderer-abstract": "^0.1-alpha1",
+                "dhii/output-renderer-interface": "^0.2 | ^0.3-alpha1",
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "psr/container": "^1.0",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Output\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Base concrete functionality for output rendering.",
+            "time": "2018-04-05T13:32:07+00:00"
+        },
+        {
+            "name": "dhii/output-renderer-interface",
+            "version": "v0.3-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/output-renderer-interface.git",
+                "reference": "de48ea589e5e1caa1191f588a3aea7623ccbaf44"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/output-renderer-interface/zipball/de48ea589e5e1caa1191f588a3aea7623ccbaf44",
+                "reference": "de48ea589e5e1caa1191f588a3aea7623ccbaf44",
                 "shasum": ""
             },
             "require": {
                 "dhii/exception-interface": "^0.1 | ^0.2",
+                "dhii/factory-interface": "^0.1-alpha2",
                 "dhii/stringable-interface": "^0.1",
                 "php": "^5.3 | ^7.0"
             },
@@ -2248,7 +2459,7 @@
                 }
             ],
             "description": "An interface for objects that can perform rendering.",
-            "time": "2018-04-05T09:39:21+00:00"
+            "time": "2018-06-02T18:49:35+00:00"
         },
         {
             "name": "dhii/php-cs-fixer-config",
@@ -2290,6 +2501,270 @@
             ],
             "description": "A default PHP CS Fixer config implementation",
             "time": "2017-07-23T12:53:27+00:00"
+        },
+        {
+            "name": "dhii/placeholder-template",
+            "version": "v0.1-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/placeholder-template.git",
+                "reference": "ab6eb2f98b085dfdf22cf86fd243cd7e6ee68525"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/placeholder-template/zipball/ab6eb2f98b085dfdf22cf86fd243cd7e6ee68525",
+                "reference": "ab6eb2f98b085dfdf22cf86fd243cd7e6ee68525",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/container-helper-base": "^0.1-alpha5",
+                "dhii/data-container-base": "^0.1-alpha1",
+                "dhii/exception": "^0.1-alpha4",
+                "dhii/factory-base": "^0.1-alpha2",
+                "dhii/i18n-helper-base": "^0.1-alpha1",
+                "dhii/normalization-helper-base": "^0.1-alpha3",
+                "dhii/output-renderer-base": "^0.1-alpha1",
+                "dhii/placeholder-template-abstract": "^0.1-alpha5",
+                "dhii/regex-abstract": "^0.1-alpha1",
+                "dhii/stringable-helper-base": "^0.1-alpha2",
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/output-renderer-interface": "^0.3-alpha2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Output\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "A template implementation that replaces placeholders in text",
+            "time": "2018-06-04T15:39:18+00:00"
+        },
+        {
+            "name": "dhii/placeholder-template-abstract",
+            "version": "v0.1-alpha5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/placeholder-template-abstract.git",
+                "reference": "bfa7cea3b1e078b19bcf59d9a3da63b8c12ed03b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/placeholder-template-abstract/zipball/bfa7cea3b1e078b19bcf59d9a3da63b8c12ed03b",
+                "reference": "bfa7cea3b1e078b19bcf59d9a3da63b8c12ed03b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "psr/container": "^1.0",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "suggest": {
+                "dhii/container-helper-base": "For standardized container retrieval",
+                "dhii/exception": "For exceptions and exception factories",
+                "dhii/i18n-helper-base": "For internationalization functionality",
+                "dhii/normalization-helper-base": "For normalization of strings and other simple types",
+                "dhii/regex-abstract": "For RegEx functionality, such as quoting and matching",
+                "dhii/stringable-helper-base": "For string replacement functionality"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Output\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Abstract functionality for working with templates that use placeholders.",
+            "time": "2018-06-04T15:21:46+00:00"
+        },
+        {
+            "name": "dhii/regex-abstract",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/regex-abstract.git",
+                "reference": "0751f9c91a6f86d5f901b6b7f3613dc80bb69a8a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/regex-abstract/zipball/0751f9c91a6f86d5f901b6b7f3613dc80bb69a8a",
+                "reference": "0751f9c91a6f86d5f901b6b7f3613dc80bb69a8a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Regex\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Abstract functionality for working with regular expressions",
+            "time": "2018-06-02T16:08:45+00:00"
+        },
+        {
+            "name": "dhii/sql-interface",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/sql-interface.git",
+                "reference": "465286d833deff37707ec2cc96884e60e31212d5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/sql-interface/zipball/465286d833deff37707ec2cc96884e60e31212d5",
+                "reference": "465286d833deff37707ec2cc96884e60e31212d5",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/expression-interface": "^0.2",
+                "dhii/expression-renderer-interface": "^0.1",
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Storage\\Resource\\Sql\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces for SQL resource abstraction.",
+            "time": "2018-04-06T11:15:17+00:00"
+        },
+        {
+            "name": "dhii/stringable-helper-base",
+            "version": "v0.1-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/stringable-helper-base.git",
+                "reference": "904254409800710665135a751659b59d140a2b40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/stringable-helper-base/zipball/904254409800710665135a751659b59d140a2b40",
+                "reference": "904254409800710665135a751659b59d140a2b40",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "suggest": {
+                "dhii/normalization-helper-base": "For using iterables instead of arrays, and stringables instead of strings"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Util\\String\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Helper functionality for working with stringables.",
+            "time": "2018-06-02T15:52:14+00:00"
         },
         {
             "name": "dhii/transition-event-interface",
@@ -2600,23 +3075,23 @@
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "4.9.6",
+            "version": "4.9.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "6ff81eb3d93d326b78a8bc0f120e72c161ec58c8"
+                "reference": "1116e10f71f8fb811856df212af652c427bc6bd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/6ff81eb3d93d326b78a8bc0f120e72c161ec58c8",
-                "reference": "6ff81eb3d93d326b78a8bc0f120e72c161ec58c8",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/1116e10f71f8fb811856df212af652c427bc6bd1",
+                "reference": "1116e10f71f8fb811856df212af652c427bc6bd1",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
             "provide": {
-                "wordpress/core-implementation": "4.9.6"
+                "wordpress/core-implementation": "4.9.7"
             },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
@@ -2636,7 +3111,7 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2018-05-17T20:02:55+00:00"
+            "time": "2018-07-05T18:12:13+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -3207,6 +3682,224 @@
             "time": "2014-01-02T16:42:27+00:00"
         },
         {
+            "name": "rebelcode/expression-wp-query-builder",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RebelCode/expression-wp-query-builder-abstract.git",
+                "reference": "1f72a94ad22cd56aa50cc88bfb6ac068e732bf0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RebelCode/expression-wp-query-builder-abstract/zipball/1f72a94ad22cd56aa50cc88bfb6ac068e732bf0c",
+                "reference": "1f72a94ad22cd56aa50cc88bfb6ac068e732bf0c",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/expression-interface": "^0.2",
+                "dhii/sql-interface": "^0.1",
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RebelCode\\WordPress\\Query\\Builder\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "RebelCode",
+                    "email": "dev@rebelcode.com"
+                }
+            ],
+            "description": "Abstract functionality for building WP_Query args using expressions.",
+            "time": "2018-05-16T10:53:34+00:00"
+        },
+        {
+            "name": "rebelcode/rcmod-wp-bookings-cqrs",
+            "version": "v0.1-alpha6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RebelCode/rcmod-wp-bookings-cqrs.git",
+                "reference": "cb6951b6f36eba5d2e1b5b27af86b06a328d21c4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RebelCode/rcmod-wp-bookings-cqrs/zipball/cb6951b6f36eba5d2e1b5b27af86b06a328d21c4",
+                "reference": "cb6951b6f36eba5d2e1b5b27af86b06a328d21c4",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/data-object-abstract": "^0.1-alpha1",
+                "dhii/placeholder-template": "^0.1-alpha2",
+                "php": "^5.4 | ^7.0",
+                "rebelcode/booking-interface": "^0.1-alpha1",
+                "rebelcode/modular": "^0.1-alpha1",
+                "rebelcode/sql-cqrs-resource-models-abstract": "^0.2-alpha1",
+                "rebelcode/wp-cqrs-resource-models": "^0.1-alpha1"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/output-renderer-interface": "^0.3-alpha2",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "johnpbloch/wordpress-core": "^4.0",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1",
+                "rebelcode/rcmod-wp-cqrs": "^0.1-alpha1"
+            },
+            "type": "rc-module",
+            "autoload": {
+                "psr-4": {
+                    "RebelCode\\Storage\\Resource\\WordPress\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "RebelCode",
+                    "email": "dev@rebelcode.com"
+                }
+            ],
+            "description": "A RebelCode module that provides the WordPress CQRS resource models for RebelCode booking plugins.",
+            "time": "2018-07-12T12:33:34+00:00"
+        },
+        {
+            "name": "rebelcode/sql-cqrs-resource-models-abstract",
+            "version": "v0.2-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RebelCode/sql-cqrs-resource-models-abstract.git",
+                "reference": "00b6d29fb626c55569e6e6670247634c28ae79cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RebelCode/sql-cqrs-resource-models-abstract/zipball/00b6d29fb626c55569e6e6670247634c28ae79cf",
+                "reference": "00b6d29fb626c55569e6e6670247634c28ae79cf",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/data-container-interface": "^0.2",
+                "dhii/exception-interface": "0.2-alpha3",
+                "dhii/expression-interface": "^0.2",
+                "dhii/output-renderer-interface": "^0.3",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/sql-interface": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RebelCode\\Storage\\Resource\\Sql\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "RebelCode",
+                    "email": "dev@rebelcode.com"
+                }
+            ],
+            "description": "Abstract functionality for SQL CQRS resource models.",
+            "time": "2018-06-14T14:59:00+00:00"
+        },
+        {
+            "name": "rebelcode/wp-cqrs-resource-models",
+            "version": "v0.1-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RebelCode/wp-cqrs-resource-models.git",
+                "reference": "2d73f5248aeba61c3604cbd14da18459e8c919a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RebelCode/wp-cqrs-resource-models/zipball/2d73f5248aeba61c3604cbd14da18459e8c919a9",
+                "reference": "2d73f5248aeba61c3604cbd14da18459e8c919a9",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/callback-abstract": "^0.1-alpha4",
+                "dhii/container-helper-base": "^0.1",
+                "dhii/cqrs-resource-model-interface": "^0.1-alpha2",
+                "dhii/data-container-base": "^0.1",
+                "dhii/exception": "^0.1-alpha4",
+                "dhii/i18n-helper-base": "^0.1",
+                "dhii/iterator-helper-base": "^0.1-alpha2",
+                "dhii/normalization-helper-base": "^0.1",
+                "php": "^5.4 | ^7.0",
+                "rebelcode/expression-wp-query-builder": "^0.1-alpha1",
+                "rebelcode/sql-cqrs-resource-models-abstract": "^0.2-alpha1"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/expression-interface": "^0.2",
+                "dhii/factory-interface": "^0.1-alpha2",
+                "dhii/invocable-interface": "^0.1-alpha1",
+                "dhii/output-renderer-interface": "^0.3",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/sql-interface": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "johnpbloch/wordpress-core": "^4.0",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RebelCode\\Storage\\Resource\\WordPress\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "RebelCode",
+                    "email": "dev@rebelcode.com"
+                }
+            ],
+            "description": "Functionality for WordPress CQRS resource models.",
+            "time": "2018-06-14T16:50:25+00:00"
+        },
+        {
             "name": "satooshi/php-coveralls",
             "version": "v1.0.2",
             "source": {
@@ -3642,7 +4335,7 @@
         },
         {
             "name": "symfony/config",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
@@ -3699,7 +4392,7 @@
         },
         {
             "name": "symfony/console",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
@@ -3760,16 +4453,16 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "fe8838e11cf7dbaf324bd6f51d065d873ccf78a2"
+                "reference": "a26ddce7fe4e884097d72435653bc7e703411f26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/fe8838e11cf7dbaf324bd6f51d065d873ccf78a2",
-                "reference": "fe8838e11cf7dbaf324bd6f51d065d873ccf78a2",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/a26ddce7fe4e884097d72435653bc7e703411f26",
+                "reference": "a26ddce7fe4e884097d72435653bc7e703411f26",
                 "shasum": ""
             },
             "require": {
@@ -3813,11 +4506,11 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-15T21:17:45+00:00"
+            "time": "2018-06-22T15:01:26+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -3877,16 +4570,16 @@
         },
         {
             "name": "symfony/filesystem",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "1ed4b265550ec43d2ceaa0e9e57b0bc4eeb1b541"
+                "reference": "0f685c099aca7ba86bcc31850186dbfe84a4a8a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/1ed4b265550ec43d2ceaa0e9e57b0bc4eeb1b541",
-                "reference": "1ed4b265550ec43d2ceaa0e9e57b0bc4eeb1b541",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/0f685c099aca7ba86bcc31850186dbfe84a4a8a1",
+                "reference": "0f685c099aca7ba86bcc31850186dbfe84a4a8a1",
                 "shasum": ""
             },
             "require": {
@@ -3923,20 +4616,20 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-15T21:17:45+00:00"
+            "time": "2018-06-21T09:24:14+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "79764d21163db295f0daf8bd9d9b91f97e65db6a"
+                "reference": "995cd7c28a0778cece02e2133b4d813dc509dfc3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/79764d21163db295f0daf8bd9d9b91f97e65db6a",
-                "reference": "79764d21163db295f0daf8bd9d9b91f97e65db6a",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/995cd7c28a0778cece02e2133b4d813dc509dfc3",
+                "reference": "995cd7c28a0778cece02e2133b4d813dc509dfc3",
                 "shasum": ""
             },
             "require": {
@@ -3972,7 +4665,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-15T21:17:45+00:00"
+            "time": "2018-06-19T11:07:17+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -4090,16 +4783,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "713952f2ccbcc8342ecdbe1cb313d3e2da8aad28"
+                "reference": "542d88b350c42750fdc14e73860ee96dd423e95d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/713952f2ccbcc8342ecdbe1cb313d3e2da8aad28",
-                "reference": "713952f2ccbcc8342ecdbe1cb313d3e2da8aad28",
+                "url": "https://api.github.com/repos/symfony/process/zipball/542d88b350c42750fdc14e73860ee96dd423e95d",
+                "reference": "542d88b350c42750fdc14e73860ee96dd423e95d",
                 "shasum": ""
             },
             "require": {
@@ -4135,11 +4828,11 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-15T21:17:45+00:00"
+            "time": "2018-05-27T07:40:52+00:00"
         },
         {
             "name": "symfony/stopwatch",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/stopwatch.git",
@@ -4188,7 +4881,7 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.41",
+            "version": "v2.8.42",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",

@@ -23,9 +23,10 @@
         "ptrofimov/xpmock": "^1.1",
         "dhii/php-cs-fixer-config": "^0.1",
         "codeclimate/php-test-reporter": "<=0.3.2",
-        "dhii/output-renderer-interface": "^0.3",
         "johnpbloch/wordpress-core": "^4.0",
         "rebelcode/booking-interface": "^0.1-alpha1",
+        "rebelcode/rcmod-wp-bookings-cqrs": "^0.1-alpha3",
+        "dhii/output-renderer-interface": "^0.3",
         "dhii/cqrs-resource-model-interface": "^0.1-alpha2",
         "dhii/expression-interface": "^0.2-alpha1",
         "dhii/transition-event-interface": "^0.1-alpha"

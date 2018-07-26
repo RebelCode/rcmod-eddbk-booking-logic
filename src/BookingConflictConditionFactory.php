@@ -12,10 +12,17 @@ use Dhii\Factory\Exception\CreateCouldNotMakeExceptionCapableTrait;
 use Dhii\Factory\Exception\CreateFactoryExceptionCapableTrait;
 use Dhii\Factory\FactoryInterface;
 use Dhii\I18n\StringTranslatingTrait;
+use Dhii\Iterator\CountIterableCapableTrait;
+use Dhii\Iterator\ResolveIteratorCapableTrait;
+use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
+use Dhii\Util\Normalization\NormalizeIntCapableTrait;
+use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Util\Normalization\NormalizeStringCapableTrait;
+use InvalidArgumentException;
 use Psr\Container\ContainerInterface;
 use RebelCode\Bookings\BookingInterface;
-use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as S;
+use stdClass;
+use Traversable;
 
 /**
  * The factory that creates the condition that is used to query for bookings that conflict with a specific booking.
@@ -32,6 +39,12 @@ class BookingConflictConditionFactory implements FactoryInterface
 
     /* @since [*next-version*] */
     use NormalizeStringCapableTrait;
+
+    /* @since [*next-version*] */
+    use NormalizeArrayCapableTrait;
+
+    /* @since [*next-version*] */
+    use NormalizeIterableCapableTrait;
 
     /* @since [*next-version*] */
     use CreateInvalidArgumentExceptionCapableTrait;
@@ -64,15 +77,52 @@ class BookingConflictConditionFactory implements FactoryInterface
     protected $exprBuilder;
 
     /**
+     * A list of non-blocking booking statuses.
+     *
+     * @since [*next-version*]
+     *
+     * @var array|stdClass|Traversable
+     */
+    protected $nonBlockingStatuses;
+
+    /**
      * Constructor.
      *
      * @since [*next-version*]
      *
-     * @param object $exprBuilder The expression builder.
+     * @param object                     $exprBuilder         The expression builder.
+     * @param array|stdClass|Traversable $nonBlockingStatuses The non-blocking booking statuses.
      */
-    public function __construct($exprBuilder)
+    public function __construct($exprBuilder, $nonBlockingStatuses)
     {
         $this->exprBuilder = $exprBuilder;
+        $this->_setNonBlockingStatuses($nonBlockingStatuses);
+    }
+
+    /**
+     * Retrieves the non-blocking booking statuses.
+     *
+     * @since [*next-version*]
+     *
+     * @return array|stdClass|Traversable The non-blocking booking statuses.
+     */
+    protected function _getNonBlockingStatuses()
+    {
+        return $this->nonBlockingStatuses;
+    }
+
+    /**
+     * Sets the non-blocking booking statuses.
+     *
+     * @since [*next-version*]
+     *
+     * @param array|stdClass|Traversable $nonBlockingStatuses The non-blocking booking statuses.
+     *
+     * @throws InvalidArgumentException If the argument is not a traversable list.
+     */
+    protected function _setNonBlockingStatuses($nonBlockingStatuses)
+    {
+        $this->nonBlockingStatuses = $this->_normalizeIterable($nonBlockingStatuses);
     }
 
     /**
@@ -126,6 +176,23 @@ class BookingConflictConditionFactory implements FactoryInterface
             );
         }
 
+        $nonBlockingStatuses = $this->_getNonBlockingStatuses();
+        $nonBlockingStatuses = $this->_normalizeArray($nonBlockingStatuses);
+
+        if (count($nonBlockingStatuses) > 0) {
+            // AND the condition to a "booking status NOT IN (...)" sub-condition, where "..." is the list of non-
+            // blocking booking statuses, to make the condition disregard bookings with those statuses.
+            $condition = $b->and(
+                $condition,
+                $b->not(
+                    $b->in(
+                        $b->ef('booking', 'status'),
+                        $b->set($nonBlockingStatuses)
+                    )
+                )
+            );
+        }
+
         // Booking must be able to provide additional data in order to tighten the condition
         if (!($booking instanceof ContainerInterface)) {
             return $condition;
@@ -133,20 +200,6 @@ class BookingConflictConditionFactory implements FactoryInterface
 
         return $b->and(
             $condition,
-            // Booking status is not `in_cart`
-            $b->not(
-                $b->eq(
-                    $b->ef('booking', 'status'),
-                    $b->lit(S::STATUS_IN_CART)
-                )
-            ),
-            // Booking status is not `cancelled`
-            $b->not(
-                $b->eq(
-                    $b->ef('booking', 'status'),
-                    $b->lit(S::STATUS_CANCELLED)
-                )
-            ),
             // Bookings' resource IDs are the same
             $b->eq(
                 $b->ef('booking', 'resource_id'),

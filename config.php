@@ -17,6 +17,11 @@ return [
             S::STATUS_COMPLETED,
             S::STATUS_CANCELLED,
         ],
+        'non_blocking_statuses' => [
+            S::STATUS_IN_CART,
+            S::STATUS_DRAFT,
+            S::STATUS_CANCELLED,
+        ],
         'status_transitions'      => [
             S::STATUS_NONE      => [
                 T::TRANSITION_CART  => S::STATUS_IN_CART,
