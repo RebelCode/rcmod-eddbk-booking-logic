@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Draft bookings no longer block new bookings.
 - Non-blocking booking statuses are now saved in config.
+- Now compatible with latest version of `rebelcode/rcmod-booking-logic` module.
 
 ## [0.1-alpha6] - 2018-06-13
 ### Changelog
