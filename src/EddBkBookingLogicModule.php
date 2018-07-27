@@ -70,12 +70,6 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                         $c->get('transition_event_factory')
                     );
                 },
-                'transition_event_factory' => function (ContainerInterface $c) {
-                    return new TransitionEventFactory();
-                },
-                'booking_state_machine_provider' => function (ContainerInterface $c) {
-                    return new BookingStateMachineProvider($c);
-                },
                 'booking_transition_manager' => function (ContainerInterface $c) {
                     return new BookingTransitionManager(
                         $c->get('booking_validator'),
