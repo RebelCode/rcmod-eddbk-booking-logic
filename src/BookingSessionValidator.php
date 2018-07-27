@@ -2,14 +2,11 @@
 
 namespace RebelCode\EddBookings\Logic\Module;
 
-use Dhii\Expression\TermInterface;
+use Dhii\Expression\LogicalExpressionInterface;
 use Dhii\Storage\Resource\SelectCapableInterface;
 use Dhii\Util\Normalization\NormalizeIterableCapableTrait;
 use Dhii\Validation\AbstractValidatorBase;
-use Psr\Container\ContainerInterface;
 use RebelCode\Bookings\BookingInterface;
-use RebelCode\Expression\Builder\ExpressionBuilderAwareTrait;
-use RebelCode\Expression\Builder\ExpressionBuilderInterface;
 
 /**
  * A booking validator that validates whether a booking matches an existing session.
@@ -18,9 +15,6 @@ use RebelCode\Expression\Builder\ExpressionBuilderInterface;
  */
 class BookingSessionValidator extends AbstractValidatorBase
 {
-    /* @since [*next-version*] */
-    use ExpressionBuilderAwareTrait;
-
     /* @since [*next-version*] */
     use NormalizeIterableCapableTrait;
 
@@ -34,12 +28,21 @@ class BookingSessionValidator extends AbstractValidatorBase
     protected $sessionsSelectRm;
 
     /**
+     * The expression builder.
+     *
+     * @since [*next-version*]
+     *
+     * @var object
+     */
+    protected $exprBuilder;
+
+    /**
      * Constructor.
      *
      * @since [*next-version*]
      *
-     * @param SelectCapableInterface     $sessionsSelectRm The SELECT resource model for sessions.
-     * @param ExpressionBuilderInterface $exprBuilder      The expression builder.
+     * @param SelectCapableInterface $sessionsSelectRm The SELECT resource model for sessions.
+     * @param object                 $exprBuilder      The expression builder.
      */
     public function __construct($sessionsSelectRm, $exprBuilder)
     {
@@ -78,6 +81,39 @@ class BookingSessionValidator extends AbstractValidatorBase
     }
 
     /**
+     * Retrieves the expression builder.
+     *
+     * @since [*next-version*]
+     *
+     * @return object The expression builder instance.
+     */
+    protected function _getExpressionBuilder()
+    {
+        return $this->exprBuilder;
+    }
+
+    /**
+     * Sets the expression builder.
+     *
+     * @since [*next-version*]
+     *
+     * @param object $exprBuilder The expression builder instance.
+     */
+    protected function _setExpressionBuilder($exprBuilder)
+    {
+        if (!is_object($exprBuilder)) {
+            throw $this->_createInvalidArgumentException(
+                $this->__('Argument is not an expression builder.'),
+                null,
+                null,
+                $exprBuilder
+            );
+        }
+
+        $this->exprBuilder = $exprBuilder;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @since [*next-version*]
@@ -109,7 +145,7 @@ class BookingSessionValidator extends AbstractValidatorBase
      *
      * @param BookingInterface $booking The booking instance for which to retrieve a matching session.
      *
-     * @return TermInterface The condition.
+     * @return LogicalExpressionInterface The condition.
      */
     protected function _buildBookingSessionCondition(BookingInterface $booking)
     {
@@ -126,22 +162,15 @@ class BookingSessionValidator extends AbstractValidatorBase
             $b->eq($e1, $e2)
         );
 
-        if (!($booking instanceof ContainerInterface)) {
-            return $matchingTime;
-        }
+        // Booking and session have the same resource IDs
+        $matchingResource = $b->eq(
+            $b->ef('session', 'resource_id'),
+            $b->lit($booking->getResourceId())
+        );
 
         return $b->and(
             $matchingTime,
-            // Booking and session have the same service IDs
-            $b->eq(
-                $b->ef('session', 'service_id'),
-                $b->lit($booking->get('service_id'))
-            ),
-            // Booking and session have the same resource IDs
-            $b->eq(
-                $b->ef('session', 'resource_id'),
-                $b->lit($booking->get('resource_id'))
-            )
+            $matchingResource
         );
     }
 }
