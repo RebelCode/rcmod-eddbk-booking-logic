@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e6f7a92d9f4db2bf8e8f8e5498536ea9",
+    "content-hash": "49c331fd07d75245b01b43c561735a39",
     "packages": [
         {
             "name": "dhii/args-list-validation",
@@ -3784,16 +3784,16 @@
         },
         {
             "name": "rebelcode/rcmod-wp-bookings-cqrs",
-            "version": "dev-develop",
+            "version": "v0.1-alpha7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RebelCode/rcmod-wp-bookings-cqrs.git",
-                "reference": "b75e76a497481bfa606e3c26286d51a0b70bc13b"
+                "reference": "695cd3c23116b3274f16cf57238283f4099a906e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RebelCode/rcmod-wp-bookings-cqrs/zipball/b75e76a497481bfa606e3c26286d51a0b70bc13b",
-                "reference": "b75e76a497481bfa606e3c26286d51a0b70bc13b",
+                "url": "https://api.github.com/repos/RebelCode/rcmod-wp-bookings-cqrs/zipball/695cd3c23116b3274f16cf57238283f4099a906e",
+                "reference": "695cd3c23116b3274f16cf57238283f4099a906e",
                 "shasum": ""
             },
             "require": {
@@ -3830,7 +3830,7 @@
                 }
             ],
             "description": "A RebelCode module that provides the WordPress CQRS resource models for RebelCode booking plugins.",
-            "time": "2018-07-27T15:44:50+00:00"
+            "time": "2018-07-27T16:16:31+00:00"
         },
         {
             "name": "rebelcode/sql-cqrs-resource-models-abstract",
@@ -4983,9 +4983,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "rebelcode/rcmod-wp-bookings-cqrs": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
