@@ -9,7 +9,7 @@ use Dhii\Util\Normalization\NormalizeArrayCapableTrait;
 use Dhii\Util\String\StringableInterface as Stringable;
 use Psr\Container\ContainerInterface;
 use Psr\EventManager\EventManagerInterface;
-use RebelCode\Bookings\FactoryStateMachineTransitioner;
+use RebelCode\Bookings\BookingTransitioner;
 use RebelCode\Modular\Module\AbstractBaseModule;
 
 /**
@@ -62,12 +62,13 @@ class EddBkBookingLogicModule extends AbstractBaseModule
             [
                 'booking_transitioner' => function (ContainerInterface $c) {
                     return new EventsDelegateTransitioner(
-                        new FactoryStateMachineTransitioner(
-                            $c->get('booking_state_machine_provider'),
+                        new BookingTransitioner(
+                            $c->get('booking_logic/state_machine/status_transitions'),
+                            $c->get('booking_transitioner_state_machine_factory'),
                             $c->get('booking_factory')
                         ),
                         $c->get('event_manager'),
-                        $c->get('transition_event_factory')
+                        $c->get('booking_transition_event_factory')
                     );
                 },
                 'booking_transition_manager' => function (ContainerInterface $c) {
