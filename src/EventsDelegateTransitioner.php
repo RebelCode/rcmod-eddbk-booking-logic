@@ -61,7 +61,6 @@ class EventsDelegateTransitioner implements TransitionerInterface
         $beforeEvent = $this->_getEventFactory()->make([
             'name'       => 'before_booking_transition',
             'transition' => $transition,
-            'target'     => $booking,
             'params'     => [
                 'booking'    => $booking,
                 'transition' => $transition,
@@ -76,7 +75,6 @@ class EventsDelegateTransitioner implements TransitionerInterface
         $afterEvent = $this->_getEventFactory()->make([
             'name'       => 'after_booking_transition',
             'transition' => $transition,
-            'target'     => $booking,
             'params'     => [
                 'booking'    => $booking,
                 'transition' => $transition,
