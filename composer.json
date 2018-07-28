@@ -15,6 +15,7 @@
         "php": "^5.4 | ^7.0",
         "rebelcode/modular": "^0.1-alpha1",
         "rebelcode/booking-transitioner": "^0.2-alpha1",
+        "rebelcode/event-state-machine": "^0.2-alpha1",
         "dhii/validation-base": "^0.2-alpha2",
         "dhii/factory-base": "^0.1-alpha3"
     },

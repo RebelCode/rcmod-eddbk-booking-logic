@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "49c331fd07d75245b01b43c561735a39",
+    "content-hash": "545a68f4cd0ae6b47dcf8b8ab369e67b",
     "packages": [
         {
             "name": "dhii/args-list-validation",
@@ -1561,6 +1561,56 @@
             "time": "2018-05-14T13:42:07+00:00"
         },
         {
+            "name": "dhii/transition-event-interface",
+            "version": "v0.1-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dhii/transition-event-interface.git",
+                "reference": "966aba89255b91b2a0ccabcee675d9239ddb20dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dhii/transition-event-interface/zipball/966aba89255b91b2a0ccabcee675d9239ddb20dd",
+                "reference": "966aba89255b91b2a0ccabcee675d9239ddb20dd",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/machine-state-machine-interface": "^0.1-alpha1",
+                "dhii/psr-14": "^0.1",
+                "php": "^5.3 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/php-cs-fixer-config": "dev-php-5.3",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Dhii\\Events\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dhii Team",
+                    "email": "development@dhii.co"
+                }
+            ],
+            "description": "Interfaces for PSR-14 events related to state machine transitions.",
+            "time": "2018-05-25T08:57:45+00:00"
+        },
+        {
             "name": "dhii/validation-abstract",
             "version": "v0.2-alpha1",
             "source": {
@@ -1927,6 +1977,65 @@
             ],
             "description": "Booking transitioner implementations.",
             "time": "2018-07-27T09:42:46+00:00"
+        },
+        {
+            "name": "rebelcode/event-state-machine",
+            "version": "v0.2-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RebelCode/event-state-machine.git",
+                "reference": "5639f11dcc06de464bc7978002a5399be1f113e9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RebelCode/event-state-machine/zipball/5639f11dcc06de464bc7978002a5399be1f113e9",
+                "reference": "5639f11dcc06de464bc7978002a5399be1f113e9",
+                "shasum": ""
+            },
+            "require": {
+                "dhii/container-helper-base": "^0.1-alpha5",
+                "dhii/data-container-base": "^0.1-alpha1",
+                "dhii/exception": "^0.1-alpha4",
+                "dhii/factory-base": "^0.1-alpha1",
+                "dhii/i18n-helper-base": "^0.1",
+                "dhii/machine-state-machine-interface": "^0.1-alpha1",
+                "dhii/state-machine-abstract": "^0.1-alpha1",
+                "dhii/transition-event-interface": "^0.1",
+                "php": "^5.4 | ^7.0"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "<=0.3.2",
+                "dhii/event-interface": "^0.2-alpha1",
+                "dhii/php-cs-fixer-config": "^0.1",
+                "dhii/psr-14": "^0.1",
+                "dhii/stringable-interface": "^0.1",
+                "phpunit/phpunit": "^4.8",
+                "psr/container": "^1.0",
+                "ptrofimov/xpmock": "^1.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "RebelCode\\State\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "RebelCode",
+                    "email": "dev@rebelcode.com"
+                }
+            ],
+            "description": "An event-based state machine implementation.",
+            "time": "2018-07-27T09:38:13+00:00"
         },
         {
             "name": "rebelcode/modular",
@@ -2816,56 +2925,6 @@
             ],
             "description": "Helper functionality for working with stringables.",
             "time": "2018-06-02T15:52:14+00:00"
-        },
-        {
-            "name": "dhii/transition-event-interface",
-            "version": "v0.1-alpha1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Dhii/transition-event-interface.git",
-                "reference": "966aba89255b91b2a0ccabcee675d9239ddb20dd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Dhii/transition-event-interface/zipball/966aba89255b91b2a0ccabcee675d9239ddb20dd",
-                "reference": "966aba89255b91b2a0ccabcee675d9239ddb20dd",
-                "shasum": ""
-            },
-            "require": {
-                "dhii/machine-state-machine-interface": "^0.1-alpha1",
-                "dhii/psr-14": "^0.1",
-                "php": "^5.3 | ^7.0"
-            },
-            "require-dev": {
-                "codeclimate/php-test-reporter": "<=0.3.2",
-                "dhii/php-cs-fixer-config": "dev-php-5.3",
-                "dhii/stringable-interface": "^0.1",
-                "phpunit/phpunit": "^4.8",
-                "ptrofimov/xpmock": "^1.1"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Dhii\\Events\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dhii Team",
-                    "email": "development@dhii.co"
-                }
-            ],
-            "description": "Interfaces for PSR-14 events related to state machine transitions.",
-            "time": "2018-05-25T08:57:45+00:00"
         },
         {
             "name": "dhii/type-interface",
