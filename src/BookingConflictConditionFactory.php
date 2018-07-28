@@ -193,17 +193,12 @@ class BookingConflictConditionFactory implements FactoryInterface
             );
         }
 
-        // Booking must be able to provide additional data in order to tighten the condition
-        if (!($booking instanceof ContainerInterface)) {
-            return $condition;
-        }
-
         return $b->and(
             $condition,
             // Bookings' resource IDs are the same
             $b->eq(
                 $b->ef('booking', 'resource_id'),
-                $b->lit($booking->get('resource_id'))
+                $b->lit($booking->getResourceId())
             )
         );
     }

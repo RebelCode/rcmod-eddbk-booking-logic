@@ -2,11 +2,11 @@
 
 namespace RebelCode\EddBookings\Logic\Module;
 
+use Dhii\Data\StateAwareInterface;
+use Dhii\Data\TransitionerAwareTrait;
+use Dhii\Data\TransitionerInterface;
 use Dhii\Event\EventFactoryInterface;
 use Psr\EventManager\EventManagerInterface;
-use RebelCode\Bookings\BookingInterface;
-use RebelCode\Bookings\TransitionerAwareTrait;
-use RebelCode\Bookings\TransitionerInterface;
 use RebelCode\Modular\Events\EventsConsumerTrait;
 
 /**
@@ -55,13 +55,12 @@ class EventsDelegateTransitioner implements TransitionerInterface
      *
      * @since [*next-version*]
      */
-    public function transition(BookingInterface $booking, $transition)
+    public function transition(StateAwareInterface $booking, $transition)
     {
         // Trigger an event before transitioning, filtering the booking
         $beforeEvent = $this->_getEventFactory()->make([
             'name'       => 'before_booking_transition',
             'transition' => $transition,
-            'target'     => $booking,
             'params'     => [
                 'booking'    => $booking,
                 'transition' => $transition,
@@ -76,7 +75,6 @@ class EventsDelegateTransitioner implements TransitionerInterface
         $afterEvent = $this->_getEventFactory()->make([
             'name'       => 'after_booking_transition',
             'transition' => $transition,
-            'target'     => $booking,
             'params'     => [
                 'booking'    => $booking,
                 'transition' => $transition,
