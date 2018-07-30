@@ -8,6 +8,7 @@ use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
 use Dhii\Data\Container\CreateNotFoundExceptionCapableTrait;
 use Dhii\Data\Container\NormalizeContainerCapableTrait;
 use Dhii\Data\Container\NormalizeKeyCapableTrait;
+use Dhii\Data\StateAwareInterface;
 use Dhii\Data\TransitionerInterface;
 use Dhii\Event\EventFactoryInterface;
 use Dhii\Events\TransitionEventInterface;
@@ -235,7 +236,11 @@ class BookingTransitionManager implements InvocableInterface
             throw $this->_createRuntimeException($this->__('Transition does not have a valid booking instance'));
         }
 
-        $status     = $booking->getStatus();
+        if (!($booking instanceof StateAwareInterface)) {
+            throw $this->_createRuntimeException($this->__('Booking in transition is not a state-aware instance'));
+        }
+
+        $status     = $booking->getState()->get('status');
         $status     = empty($status) ? S::STATUS_NONE : $status;
         $transition = $event->getTransition();
 
