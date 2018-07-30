@@ -26,6 +26,7 @@
         "codeclimate/php-test-reporter": "<=0.3.2",
         "johnpbloch/wordpress-core": "^4.0",
         "rebelcode/booking-interface": "^0.2-alpha1",
+        "rebelcode/rcmod-booking-logic": "^0.1-alpha1",
         "rebelcode/rcmod-wp-bookings-cqrs": "^0.1-alpha7",
         "dhii/output-renderer-interface": "^0.3",
         "dhii/cqrs-resource-model-interface": "^0.2-alpha1",
