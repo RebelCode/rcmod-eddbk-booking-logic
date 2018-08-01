@@ -14,9 +14,11 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-container-abstract" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-container-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-container-interface" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-hierarchy-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-identifiable-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-key-value-aware-abstract" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-key-value-aware-interface" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-path-aware-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-state-abstract" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-state-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/data-state-interface" />
@@ -32,8 +34,12 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/i18n-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/invocable-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/invocable-interface" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/iterator-abstract" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/iterator-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/iterator-helper-base" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/iterator-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/machine-state-machine-interface" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/map" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/module-interface" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/normalization-helper-base" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/dhii/php-cs-fixer-config" />
@@ -68,6 +74,12 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/event-state-machine" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/modular" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/module-iterator-abstract" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/rc-booking" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/rc-booking-interface" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/rcmod-booking-logic" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/session-generator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/session-generator-interface" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/rebelcode/time-abstract" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/satooshi/php-coveralls" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/comparator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/diff" />
