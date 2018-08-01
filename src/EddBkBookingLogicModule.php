@@ -63,7 +63,7 @@ class EddBkBookingLogicModule extends AbstractBaseModule
                 'booking_transitioner' => function (ContainerInterface $c) {
                     return new EventsDelegateTransitioner(
                         new BookingTransitioner(
-                            $c->get('booking_logic/state_machine/status_transitions'),
+                            $c->get('booking_logic/status_transitions'),
                             $c->get('booking_transitioner_state_machine_factory'),
                             $c->get('booking_factory')
                         ),

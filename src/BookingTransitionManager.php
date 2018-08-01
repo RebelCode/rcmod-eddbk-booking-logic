@@ -8,6 +8,8 @@ use Dhii\Data\Container\CreateContainerExceptionCapableTrait;
 use Dhii\Data\Container\CreateNotFoundExceptionCapableTrait;
 use Dhii\Data\Container\NormalizeContainerCapableTrait;
 use Dhii\Data\Container\NormalizeKeyCapableTrait;
+use Dhii\Data\StateAwareInterface;
+use Dhii\Data\TransitionerInterface;
 use Dhii\Event\EventFactoryInterface;
 use Dhii\Events\TransitionEventInterface;
 use Dhii\Exception\CreateOutOfRangeExceptionCapableTrait;
@@ -21,8 +23,6 @@ use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Psr\EventManager\EventManagerInterface;
 use RebelCode\Bookings\BookingInterface;
-use RebelCode\Bookings\TransitionerAwareTrait;
-use RebelCode\Bookings\TransitionerInterface;
 use RebelCode\EddBookings\Logic\Module\BookingStatusInterface as S;
 use RebelCode\EddBookings\Logic\Module\BookingTransitionInterface as T;
 use RebelCode\Modular\Events\EventsConsumerTrait;
@@ -45,13 +45,6 @@ class BookingTransitionManager implements InvocableInterface
         _getValidator as _getBookingValidator;
         _setValidator as _setBookingValidator;
     }
-
-    /*
-     * Provides awareness of a booking transitioner.
-     *
-     * @since [*next-version*]
-     */
-    use TransitionerAwareTrait;
 
     /*
      * Provides awareness of configuration.
@@ -117,6 +110,15 @@ class BookingTransitionManager implements InvocableInterface
     use EventsConsumerTrait;
 
     /**
+     * The booking transitioner.
+     *
+     * @since [*next-version*]
+     *
+     * @var TransitionerInterface
+     */
+    protected $transitioner;
+
+    /**
      * Constructor.
      *
      * @since [*next-version*]
@@ -139,6 +141,30 @@ class BookingTransitionManager implements InvocableInterface
         $this->_setEventManager($eventManager);
         $this->_setEventFactory($eventFactory);
         $this->_setPossibleTransitions($transitions);
+    }
+
+    /**
+     * Retrieves the booking transitioner.
+     *
+     * @since [*next-version*]
+     *
+     * @return TransitionerInterface The booking transitioner instance.
+     */
+    protected function _getTransitioner()
+    {
+        return $this->transitioner;
+    }
+
+    /**
+     * Sets the booking transitioner.
+     *
+     * @since [*next-version*]
+     *
+     * @param TransitionerInterface $transitioner The booking transitioner instance.
+     */
+    protected function _setTransitioner(TransitionerInterface $transitioner)
+    {
+        $this->transitioner = $transitioner;
     }
 
     /**
@@ -210,7 +236,11 @@ class BookingTransitionManager implements InvocableInterface
             throw $this->_createRuntimeException($this->__('Transition does not have a valid booking instance'));
         }
 
-        $status     = $booking->getStatus();
+        if (!($booking instanceof StateAwareInterface)) {
+            throw $this->_createRuntimeException($this->__('Booking in transition is not a state-aware instance'));
+        }
+
+        $status     = $booking->getState()->get('status');
         $status     = empty($status) ? S::STATUS_NONE : $status;
         $transition = $event->getTransition();
 
@@ -286,7 +316,7 @@ class BookingTransitionManager implements InvocableInterface
     {
         if ($event->getTransition() === T::TRANSITION_SUBMIT) {
             $booking = $event->getParam('booking');
-            $booking = $this->transitioner->transition($booking, T::TRANSITION_APPROVE);
+            $booking = $this->_getTransitioner()->transition($booking, T::TRANSITION_APPROVE);
 
             $event->setParams(['booking' => $booking] + $event->getParams());
         }
@@ -303,7 +333,7 @@ class BookingTransitionManager implements InvocableInterface
     {
         if ($event->getTransition() === T::TRANSITION_APPROVE) {
             $booking = $event->getParam('booking');
-            $booking = $this->transitioner->transition($booking, T::TRANSITION_SCHEDULE);
+            $booking = $this->_getTransitioner()->transition($booking, T::TRANSITION_SCHEDULE);
 
             $event->setParams(['booking' => $booking] + $event->getParams());
         }
