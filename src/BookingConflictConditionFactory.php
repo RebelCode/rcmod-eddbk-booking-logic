@@ -193,13 +193,22 @@ class BookingConflictConditionFactory implements FactoryInterface
             );
         }
 
-        return $b->and(
-            $condition,
-            // Bookings' resource IDs are the same
-            $b->eq(
-                $b->ef('booking', 'resource_id'),
-                $b->lit($booking->getResourceId())
-            )
-        );
+        foreach ($booking->getResourceIds() as $resourceId) {
+            $condition = $b->and(
+                $condition,
+                // The resource is in the list of resources for the booking in the DB
+                // The FIND_IN_SET(needle, haystack) MySQL function takes 2 strings and checks if the needle string
+                // is found in the haystack string comma separated list (without whitespace).
+                $b->fn(
+                    'FIND_IN_SET',
+                    [
+                        $b->lit($resourceId),
+                        $b->ef('booking', 'resources')
+                    ]
+                )
+            );
+        }
+
+        return $condition;
     }
 }
