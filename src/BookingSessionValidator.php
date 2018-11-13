@@ -162,11 +162,22 @@ class BookingSessionValidator extends AbstractValidatorBase
             $b->eq($e1, $e2)
         );
 
-        // Booking and session have the same resource IDs
-        $matchingResource = $b->eq(
-            $b->ef('session', 'resource_id'),
-            $b->lit($booking->getResourceId())
-        );
+        $matchingResource = null;
+        foreach ($booking->getResourceIds() as $resourceId) {
+            // The resource is in the list of resources for the session
+            // The FIND_IN_SET(needle, haystack) MySQL function takes 2 strings and checks if the needle string
+            // is found in the haystack string comma separated list (without whitespace).
+            $r = $b->fn(
+                'FIND_IN_SET',
+                [
+                    $b->lit($resourceId),
+                    $b->ef('session', 'resource_ids')
+                ]
+            );
+            $matchingResource = ($matchingResource !== null)
+                ? $b->and($matchingResource, $r)
+                : $r;
+        }
 
         return $b->and(
             $matchingTime,
