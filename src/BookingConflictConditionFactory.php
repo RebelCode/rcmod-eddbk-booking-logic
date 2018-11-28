@@ -202,7 +202,7 @@ class BookingConflictConditionFactory implements FactoryInterface
                 $b->fn(
                     'FIND_IN_SET',
                     $b->lit($resourceId),
-                    $b->ef('booking', 'resource_ids')
+                    $b->var('resource_ids')
                 )
             );
         }
