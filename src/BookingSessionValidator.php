@@ -169,10 +169,8 @@ class BookingSessionValidator extends AbstractValidatorBase
             // is found in the haystack string comma separated list (without whitespace).
             $r = $b->fn(
                 'FIND_IN_SET',
-                [
-                    $b->lit($resourceId),
-                    $b->ef('session', 'resource_ids')
-                ]
+                $b->lit($resourceId),
+                $b->ef('session', 'resource_ids')
             );
             $matchingResource = ($matchingResource !== null)
                 ? $b->and($matchingResource, $r)

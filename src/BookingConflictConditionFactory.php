@@ -201,10 +201,8 @@ class BookingConflictConditionFactory implements FactoryInterface
                 // is found in the haystack string comma separated list (without whitespace).
                 $b->fn(
                     'FIND_IN_SET',
-                    [
-                        $b->lit($resourceId),
-                        $b->ef('booking', 'resource_ids')
-                    ]
+                    $b->lit($resourceId),
+                    $b->ef('booking', 'resource_ids')
                 )
             );
         }
