@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [[*next-version*]] - YYYY-MM-DD
+### Changed
+- Using the new collective `rebelcode/booking-system` package.
+- Updated booking validator conditions to conform to bookings and sessions having multiple resources.
 
 ## [0.1-alpha7] - 2018-08-01
 ### Changed
