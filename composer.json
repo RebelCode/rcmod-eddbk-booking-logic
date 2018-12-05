@@ -12,9 +12,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
-        "php": "^5.4 | ^7.0",
+        "php": "^5.5 | ^7.0",
         "rebelcode/modular": "^0.1-alpha1",
-        "rebelcode/booking-transitioner": "^0.2-alpha2",
+        "rebelcode/booking-system": "^0.1-alpha1",
         "rebelcode/event-state-machine": "^0.2-alpha1",
         "dhii/validation-base": "^0.2-alpha2",
         "dhii/factory-base": "^0.1-alpha3"
@@ -25,8 +25,7 @@
         "dhii/php-cs-fixer-config": "^0.1",
         "codeclimate/php-test-reporter": "<=0.3.2",
         "johnpbloch/wordpress-core": "^4.0",
-        "rebelcode/booking-interface": "^0.2-alpha1",
-        "rebelcode/rcmod-booking-logic": "^0.1-alpha2",
+        "rebelcode/rcmod-booking-logic": "^0.1-alpha3",
         "rebelcode/rcmod-wp-bookings-cqrs": "^0.1-alpha8",
         "dhii/output-renderer-interface": "^0.3",
         "dhii/cqrs-resource-model-interface": "^0.2-alpha1",
